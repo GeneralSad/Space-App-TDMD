@@ -10,6 +10,8 @@ public class Landpad {
     private String type;
     private String locality;
     private String region;
+    private double latitude;
+    private double longitude;
     private int landingAttempts;
     private int landingSuccesses;
     private String wikipedia;
@@ -17,13 +19,15 @@ public class Landpad {
     private ArrayList<String> flightIds;
     private String id;
 
-    public Landpad(String name, String fullName, String status, String type, String locality, String region, int landingAttempts, int landingSuccesses, String wikipedia, String details, ArrayList<String> flightIds, String id) {
+    public Landpad(String name, String fullName, String status, String type, String locality, String region, double latitude, double longitude, int landingAttempts, int landingSuccesses, String wikipedia, String details, ArrayList<String> flightIds, String id) {
         this.name = name;
         this.fullName = fullName;
         this.status = status;
         this.type = type;
         this.locality = locality;
         this.region = region;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.landingAttempts = landingAttempts;
         this.landingSuccesses = landingSuccesses;
         this.wikipedia = wikipedia;
@@ -78,5 +82,13 @@ public class Landpad {
 
     public String getId() {
         return id;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 }

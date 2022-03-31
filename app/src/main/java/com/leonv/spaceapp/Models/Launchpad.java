@@ -12,12 +12,14 @@ public class Launchpad {
     private int launch_successes;
     private ArrayList<String> rocketIds;
     private String timezone;
+    private double latitude;
+    private double longitude;
     private ArrayList<String> launchIds;
     private String status;
     private String details;
     private String id;
 
-    public Launchpad(String name, String fullName, String locality, String region, int launch_attempts, int launch_successes, ArrayList<String> rocketIds, String timezone, ArrayList<String> launchIds, String status, String details, String id) {
+    public Launchpad(String name, String fullName, String locality, String region, int launch_attempts, int launch_successes, ArrayList<String> rocketIds, String timezone, double latitude, double longitude, ArrayList<String> launchIds, String status, String details, String id) {
         this.name = name;
         this.fullName = fullName;
         this.locality = locality;
@@ -26,6 +28,8 @@ public class Launchpad {
         this.launch_successes = launch_successes;
         this.rocketIds = rocketIds;
         this.timezone = timezone;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.launchIds = launchIds;
         this.status = status;
         this.details = details;
@@ -78,5 +82,13 @@ public class Launchpad {
 
     public String getId() {
         return id;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 }

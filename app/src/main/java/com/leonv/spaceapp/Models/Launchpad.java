@@ -1,8 +1,12 @@
 package com.leonv.spaceapp.Models;
 
+import com.leonv.spaceapp.Fragments.MapFragment;
+
 import java.util.ArrayList;
 
 public class Launchpad {
+
+    private static final String LOGTAG = Launchpad.class.getName();
 
     private String name;
     private String fullName;

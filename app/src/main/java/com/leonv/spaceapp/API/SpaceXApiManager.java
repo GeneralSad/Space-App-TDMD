@@ -30,19 +30,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SpaceXApiManager {
 
     private static final String LOGTAG = SpaceXApiManager.class.getName();
 
-    private AppCompatActivity context;
     private RequestQueue queue;
     private ArrayList<SpaceXApiListener> listeners = new ArrayList<>();
 
-    public SpaceXApiManager(AppCompatActivity appContext) {
-        this.context = appContext;
-        this.queue = Volley.newRequestQueue(this.context);
+    public SpaceXApiManager(Context appContext) {
+        this.queue = Volley.newRequestQueue(appContext);
     }
 
     public void addListener(SpaceXApiListener listener) {
@@ -62,7 +61,36 @@ public class SpaceXApiManager {
                     for (SpaceXApiListener listener : listeners) {
                         listener.onLaunchpadAvailable(launchpad);
                     }
+                },
+                error -> {
+                    Log.e(LOGTAG, error.getLocalizedMessage());
+                    listeners.forEach(listener -> listener.onDataError(new Error(error.getLocalizedMessage())));
+                }
+        );
+        this.queue.add(request);
+    }
 
+    public void getLaunchPadsData() {
+        final String url = "https://api.spacexdata.com/v4/launchpads/";
+
+        final JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                response -> {
+                    Log.d(LOGTAG, "Volley response: " + response.toString());
+
+                    try {
+                        ArrayList<Launchpad> launchpads = new ArrayList<>(response.length());
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject jsonFlight = response.getJSONObject(i);
+                            Launchpad launchpad = createLaunchpad(jsonFlight);
+                            launchpads.add(launchpad);
+                        }
+
+                        for (SpaceXApiListener listener : listeners) {
+                            listener.onLaunchpadsAvailable(launchpads);
+                        }
+                    } catch (JSONException exception) {
+                        Log.e(LOGTAG, "Error while parsing JSON data: " + exception.getLocalizedMessage());
+                    }
                 },
                 error -> {
                     Log.e(LOGTAG, error.getLocalizedMessage());

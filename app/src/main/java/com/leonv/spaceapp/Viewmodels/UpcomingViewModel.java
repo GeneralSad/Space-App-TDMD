@@ -46,31 +46,6 @@ public class UpcomingViewModel extends ViewModel implements SpaceXApiListener, O
     }
 
     @Override
-    public void onRocketAvailable(Rocket rocket) {
-
-    }
-
-    @Override
-    public void onPayloadAvailable(Payload payload) {
-
-    }
-
-    @Override
-    public void onLaunchpadAvailable(Launchpad launchpad) {
-
-    }
-
-    @Override
-    public void onLandpadAvailable(Landpad landpad) {
-
-    }
-
-    @Override
-    public void onDataError(Error error) {
-
-    }
-
-    @Override
     public void onItemClick(int clickedPosition) {
         Log.d(LOGTAG, "Pressed: " + flights.get(clickedPosition).getName());
         this.selectedFlight.setValue(flights.get(clickedPosition));

@@ -26,9 +26,9 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         } else if (modelClass == RocketsViewModel.class) {
             return (T) new RocketsViewModel(spaceXApiManager);
         } else if (modelClass == MapViewModel.class) {
-            return (T) new MapViewModel(spaceXApiManager);
+            return (T) new MapViewModel();
         } else {
-            return (T) new MapViewModel(spaceXApiManager);
+            return (T) new MapViewModel();
         }
     }
 

@@ -1,6 +1,10 @@
 package com.leonv.spaceapp.Models;
 
+import com.leonv.spaceapp.Fragments.MapFragment;
+
 public class PayloadWeight {
+
+    private static final String LOGTAG = PayloadWeight.class.getName();
 
     private String id;
     private String name;

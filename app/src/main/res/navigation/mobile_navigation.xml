@@ -3,29 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
-
-    <fragment
-        android:id="@+id/nav_home"
-        android:name="com.leonv.spaceapp.Fragments.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.leonv.spaceapp.Fragments.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.leonv.spaceapp.Fragments.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+    app:startDestination="@+id/nav_map">
 
     <fragment
         android:id="@+id/nav_map"
         android:name="com.leonv.spaceapp.Fragments.MapFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_map" />
+        android:label="@string/menu_map"
+        tools:layout="@layout/map_fragment" />
+
+    <fragment
+        android:id="@+id/nav_upcoming"
+        android:name="com.leonv.spaceapp.Fragments.UpcomingFragment"
+        android:label="@string/menu_upcoming"
+        tools:layout="@layout/upcoming_fragment" />
+
+    <fragment
+        android:id="@+id/nav_rockets"
+        android:name="com.leonv.spaceapp.Fragments.RocketsFragment"
+        android:label="@string/menu_rockets"
+        tools:layout="@layout/rockets_fragment" />
+
 </navigation>

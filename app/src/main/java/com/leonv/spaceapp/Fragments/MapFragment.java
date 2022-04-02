@@ -32,7 +32,7 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 public class MapFragment extends Fragment {
 
     private FragmentMapBinding binding;
-    private ActivityResultLauncher<String> requestPermissionLauncher =
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(),
                     this::permissionCallback);
 

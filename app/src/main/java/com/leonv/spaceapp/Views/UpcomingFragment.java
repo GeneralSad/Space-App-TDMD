@@ -22,14 +22,10 @@ public class UpcomingFragment extends Fragment {
 
     private UpcomingViewModel upcomingViewModel;
 
-    public static UpcomingFragment newInstance() {
-        return new UpcomingFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.upcomingViewModel = new ViewModelProvider(requireActivity()).get(UpcomingViewModel.class);
+        this.upcomingViewModel = new ViewModelProvider(this).get(UpcomingViewModel.class);
     }
 
     @Override

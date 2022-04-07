@@ -1,5 +1,6 @@
 package com.leonv.spaceapp.API;
 
+import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -37,11 +38,24 @@ public class SpaceXApiManager {
 
     private static final String LOGTAG = SpaceXApiManager.class.getName();
 
+    private static SpaceXApiManager instance;
+
     private RequestQueue queue;
     private ArrayList<SpaceXApiListener> listeners = new ArrayList<>();
 
-    public SpaceXApiManager(Context appContext) {
-        this.queue = Volley.newRequestQueue(appContext);
+    public SpaceXApiManager(Context context) {
+        this.queue = Volley.newRequestQueue(context);
+    }
+
+    public static SpaceXApiManager getInstance(final Context context){
+        if(instance == null){
+            synchronized (SpaceXApiManager.class){
+                if(instance == null){
+                    instance = new SpaceXApiManager(context);
+                }
+            }
+        }
+        return instance;
     }
 
     public void addListener(SpaceXApiListener listener) {

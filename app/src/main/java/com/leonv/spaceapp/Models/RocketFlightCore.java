@@ -1,6 +1,10 @@
 package com.leonv.spaceapp.Models;
 
+import com.leonv.spaceapp.Fragments.MapFragment;
+
 public class RocketFlightCore {
+
+    private static final String LOGTAG = RocketFlightCore.class.getName();
 
     private int coreFlightNumber;
     private boolean reusedCore;

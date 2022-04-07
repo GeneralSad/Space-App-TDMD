@@ -1,9 +1,13 @@
 package com.leonv.spaceapp.Models;
 
+import com.leonv.spaceapp.Fragments.MapFragment;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Flight implements Serializable {
+
+    private static final String LOGTAG = Flight.class.getName();
 
     private boolean hasReusedFairings;
     private String webcastLink;

@@ -1,8 +1,12 @@
 package com.leonv.spaceapp.Models;
 
+import com.leonv.spaceapp.Fragments.MapFragment;
+
 import java.util.ArrayList;
 
 public class Payload {
+
+    private static final String LOGTAG = Payload.class.getName();
 
     private String name;
     private String type;

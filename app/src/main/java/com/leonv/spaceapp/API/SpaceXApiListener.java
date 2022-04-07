@@ -6,11 +6,14 @@ import com.leonv.spaceapp.Models.Launchpad;
 import com.leonv.spaceapp.Models.Payload;
 import com.leonv.spaceapp.Models.Rocket;
 
+import java.util.List;
+
 public interface SpaceXApiListener {
-    public void onFlightAvailable(Flight flight);
-    public void onRocketAvailable(Rocket rocket);
-    public void onPayloadAvailable(Payload payload);
-    public void onLaunchpadAvailable(Launchpad launchpad);
-    public void onLandpadAvailable(Landpad landpad);
-    public void onDataError(Error error);
+    default void onFlightAvailable(Flight flight) {};
+    default void onRocketAvailable(Rocket rocket) {};
+    default void onPayloadAvailable(Payload payload) {};
+    default void onLaunchpadAvailable(Launchpad launchpad) {};
+    default void onLaunchpadsAvailable(List<Launchpad> launchpads) {};
+    default void onLandpadAvailable(Landpad landpad) {};
+    default void onDataError(Error error) {};
 }

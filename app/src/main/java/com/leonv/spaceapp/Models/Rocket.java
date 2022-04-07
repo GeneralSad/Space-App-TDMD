@@ -1,8 +1,12 @@
 package com.leonv.spaceapp.Models;
 
+import com.leonv.spaceapp.Fragments.MapFragment;
+
 import java.util.ArrayList;
 
 public class Rocket {
+
+    private static final String LOGTAG = Rocket.class.getName();
 
     private int height;
     private int diameter;

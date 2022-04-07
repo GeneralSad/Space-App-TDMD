@@ -18,7 +18,7 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
 
     private static final String LOGTAG = FlightsRecyclerViewAdapter.class.getName();
 
-    private final List<Flight> flights;
+    private List<Flight> flights;
     private OnItemClickListener onItemClickListener;
 
     public FlightsRecyclerViewAdapter(ArrayList<Flight> items, OnItemClickListener onItemClickListener) {
@@ -36,6 +36,11 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
     public void onBindViewHolder(final FlightsViewHolder holder, int position) {
         holder.flightName.setText(flights.get(position).getName());
         holder.flight = flights.get(position);
+    }
+
+    public void updateFlights(List<Flight> flights) {
+        this.flights = flights;
+        notifyDataSetChanged();
     }
 
     @Override

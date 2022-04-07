@@ -13,19 +13,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.R;
 import com.leonv.spaceapp.Viewmodels.UpcomingViewModel;
 
-public class UpcomingFragment extends Fragment {
+import java.util.List;
+
+public class UpcomingFragment extends Fragment implements UpcomingViewModel.FlightsListener {
 
     private static final String LOGTAG = UpcomingFragment.class.getName();
 
     private UpcomingViewModel upcomingViewModel;
+    private FlightsRecyclerViewAdapter flightsRecyclerViewAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.upcomingViewModel = new ViewModelProvider(this).get(UpcomingViewModel.class);
+        this.upcomingViewModel.addFlightsListener(this);
     }
 
     @Override
@@ -39,11 +44,15 @@ public class UpcomingFragment extends Fragment {
 
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-            FlightsRecyclerViewAdapter itemRecyclerViewAdapter = new FlightsRecyclerViewAdapter(upcomingViewModel.getFlights(), upcomingViewModel);
-            recyclerView.setAdapter(itemRecyclerViewAdapter);
+            flightsRecyclerViewAdapter = new FlightsRecyclerViewAdapter(upcomingViewModel.getFlights(), upcomingViewModel);
+            recyclerView.setAdapter(flightsRecyclerViewAdapter);
         }
 
         return view;
     }
 
+    @Override
+    public void onFlightsAvailable(List<Flight> flightList) {
+        flightsRecyclerViewAdapter.updateFlights(flightList);
+    }
 }

@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.Rocket;
 import com.leonv.spaceapp.OnItemClickListener;
 import com.leonv.spaceapp.R;
@@ -18,7 +19,7 @@ public class RocketsRecyclerViewAdapter extends RecyclerView.Adapter<RocketsRecy
 
     private static final String LOGTAG = RocketsRecyclerViewAdapter.class.getName();
 
-    private final List<Rocket> rockets;
+    private List<Rocket> rockets;
     private OnItemClickListener onItemClickListener;
 
     public RocketsRecyclerViewAdapter(ArrayList<Rocket> items, OnItemClickListener onItemClickListener) {
@@ -36,6 +37,11 @@ public class RocketsRecyclerViewAdapter extends RecyclerView.Adapter<RocketsRecy
     public void onBindViewHolder(final RocketsViewHolder holder, int position) {
         holder.rocketName.setText(rockets.get(position).getName());
         holder.rocket = rockets.get(position);
+    }
+
+    public void updateRockets(List<Rocket> rockets) {
+        this.rockets = rockets;
+        notifyDataSetChanged();
     }
 
     @Override

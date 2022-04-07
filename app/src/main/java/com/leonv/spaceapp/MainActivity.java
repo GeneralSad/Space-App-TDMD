@@ -17,6 +17,7 @@ import com.leonv.spaceapp.API.SpaceXApiManager;
 import com.leonv.spaceapp.Viewmodels.MapViewModel;
 import com.leonv.spaceapp.Viewmodels.RocketsViewModel;
 import com.leonv.spaceapp.Viewmodels.UpcomingViewModel;
+import com.leonv.spaceapp.Viewmodels.ViewModelFactory;
 import com.leonv.spaceapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {

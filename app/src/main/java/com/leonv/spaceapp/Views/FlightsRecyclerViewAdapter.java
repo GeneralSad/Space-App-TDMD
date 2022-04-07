@@ -1,4 +1,4 @@
-package com.leonv.spaceapp;
+package com.leonv.spaceapp.Views;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.leonv.spaceapp.Models.Flight;
+import com.leonv.spaceapp.OnItemClickListener;
+import com.leonv.spaceapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecyclerViewAdapter.ViewHolder> {
+public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecyclerViewAdapter.FlightsViewHolder> {
 
     private static final String LOGTAG = FlightsRecyclerViewAdapter.class.getName();
 
@@ -25,13 +27,13 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FlightsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.upcoming_fragment_item, parent, false);
-        return new ViewHolder(itemView);
+        return new FlightsViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final FlightsViewHolder holder, int position) {
         holder.flightName.setText(flights.get(position).getName());
         holder.flight = flights.get(position);
     }
@@ -41,11 +43,11 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
         return flights.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class FlightsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView flightName;
         public Flight flight;
 
-        public ViewHolder(View view) {
+        public FlightsViewHolder(View view) {
             super(view);
             flightName = view.findViewById(R.id.upcomingItemText);
             itemView.setOnClickListener(this);

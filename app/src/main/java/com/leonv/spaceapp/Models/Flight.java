@@ -1,7 +1,5 @@
 package com.leonv.spaceapp.Models;
 
-import com.leonv.spaceapp.Fragments.MapFragment;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 

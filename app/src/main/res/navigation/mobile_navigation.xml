@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_map"
-        android:name="com.leonv.spaceapp.Fragments.MapFragment"
+        android:name="com.leonv.spaceapp.Views.MapFragment"
         android:label="@string/menu_map"
         tools:layout="@layout/map_fragment" />
 
     <fragment
         android:id="@+id/nav_upcoming"
-        android:name="com.leonv.spaceapp.Fragments.UpcomingFragment"
+        android:name="com.leonv.spaceapp.Views.UpcomingFragment"
         android:label="@string/menu_upcoming"
         tools:layout="@layout/upcoming_fragment" />
 
     <fragment
         android:id="@+id/nav_rockets"
-        android:name="com.leonv.spaceapp.Fragments.RocketsFragment"
+        android:name="com.leonv.spaceapp.Views.RocketsFragment"
         android:label="@string/menu_rockets"
         tools:layout="@layout/rockets_fragment" />
 

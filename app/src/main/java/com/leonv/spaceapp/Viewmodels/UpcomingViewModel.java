@@ -7,17 +7,10 @@ import androidx.lifecycle.ViewModel;
 
 import com.leonv.spaceapp.API.SpaceXApiListener;
 import com.leonv.spaceapp.API.SpaceXApiManager;
-import com.leonv.spaceapp.Fragments.MapFragment;
 import com.leonv.spaceapp.Models.Flight;
-import com.leonv.spaceapp.Models.Landpad;
-import com.leonv.spaceapp.Models.Launchpad;
-import com.leonv.spaceapp.Models.Payload;
-import com.leonv.spaceapp.Models.Rocket;
 import com.leonv.spaceapp.OnItemClickListener;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public class UpcomingViewModel extends ViewModel implements SpaceXApiListener, OnItemClickListener {
 

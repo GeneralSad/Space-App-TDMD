@@ -49,6 +49,37 @@ public class SpaceXApiManager {
     }
 
     //TODO: Every get...Data method is repeating code, maybe find a way to do this better
+
+    public void getRocketsData() {
+        final String url = "https://api.spacexdata.com/v4/rockets";
+
+        final JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                response -> {
+                    Log.d(LOGTAG, "Volley response: " + response.toString());
+
+                    try {
+                        ArrayList<Rocket> rockets = new ArrayList<>(response.length());
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject jsonRocket = response.getJSONObject(i);
+                            Rocket rocket = createRocket(jsonRocket);
+                            rockets.add(rocket);
+                        }
+
+                        for (SpaceXApiListener listener : listeners) {
+                            listener.onRocketsAvailable(rockets);
+                        }
+                    } catch (JSONException exception) {
+                        Log.e(LOGTAG, "Error while parsing JSON data: " + exception.getLocalizedMessage());
+                    }
+                },
+                error -> {
+                    Log.e(LOGTAG, error.getLocalizedMessage());
+                    listeners.forEach(listener -> listener.onDataError(new Error(error.getLocalizedMessage())));
+                }
+        );
+        this.queue.add(request);
+    }
+
     public void getLaunchPadData(String id) {
         final String url = "https://api.spacexdata.com/v4/launchpads/" + id;
 
@@ -379,7 +410,7 @@ public class SpaceXApiManager {
 
             JSONObject jsonEngines = jsonRocket.getJSONObject("engines");
             String engines_Type = jsonEngines.getString("type");
-            int engines_EngineLossMax = jsonEngines.getInt("engine_loss_max");
+            int engines_EngineLossMax = !jsonEngines.isNull("engine_loss_max") ? jsonEngines.getInt("engine_loss_max") : -1;
             String propellant1 = jsonEngines.getString("propellant_1");
             String propellant2 = jsonEngines.getString("propellant_2");
             int TWR = jsonEngines.getInt("thrust_to_weight");

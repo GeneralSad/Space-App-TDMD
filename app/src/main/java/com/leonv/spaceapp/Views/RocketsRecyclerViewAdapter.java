@@ -28,7 +28,7 @@ public class RocketsRecyclerViewAdapter extends RecyclerView.Adapter<RocketsRecy
 
     @Override
     public RocketsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.upcoming_fragment_item, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.rockets_fragment_item, parent, false);
         return new RocketsViewHolder(itemView);
     }
 

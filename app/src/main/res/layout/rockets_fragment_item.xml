@@ -8,14 +8,17 @@
     android:id="@+id/rocketsItemLayout">
 
     <ImageView
-        android:layout_margin="10dp"
         android:id="@+id/rocketsItemImage"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
         android:layout_marginEnd="16dp"
+        android:maxWidth="50dp"
+        android:maxHeight="50dp"
         android:src="@drawable/rocket"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/rocketsItemText"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,14 +26,42 @@
         android:id="@+id/rocketsItemText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:layout_marginStart="233dp"
+        android:layout_marginStart="16dp"
         android:text="Name placeholder"
         android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/rocketsItemImage"
+        app:flow_horizontalBias="0.0"
+        app:layout_constraintBottom_toTopOf="@id/rocketsItemSuccessRate"
+        app:layout_constraintStart_toEndOf="@id/rocketsItemImage"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/rocketsItemSuccessRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Successrate placeholder"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/rocketsItemLaunchCost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/rocketsItemImage"
+        app:layout_constraintTop_toBottomOf="@id/rocketsItemText" />
+
+    <TextView
+        android:id="@+id/rocketsItemLaunchCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Cost placeholder"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/rocketsItemImage"
+        app:layout_constraintTop_toBottomOf="@id/rocketsItemSuccessRate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

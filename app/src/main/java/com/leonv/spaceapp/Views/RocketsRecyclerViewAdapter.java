@@ -3,6 +3,7 @@ package com.leonv.spaceapp.Views;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +37,8 @@ public class RocketsRecyclerViewAdapter extends RecyclerView.Adapter<RocketsRecy
     @Override
     public void onBindViewHolder(final RocketsViewHolder holder, int position) {
         holder.rocketName.setText(rockets.get(position).getName());
+        holder.successRate.setText(Integer.toString(rockets.get(position).getSuccesRate()) + "%");
+        holder.launchCost.setText("$" + Integer.toString(rockets.get(position).getLaunchCostDollar()));
         holder.rocket = rockets.get(position);
     }
 
@@ -51,11 +54,17 @@ public class RocketsRecyclerViewAdapter extends RecyclerView.Adapter<RocketsRecy
 
     public class RocketsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView rocketName;
+        public TextView successRate;
+        public TextView launchCost;
         public Rocket rocket;
+        public ImageView image;
 
         public RocketsViewHolder(View view) {
             super(view);
             rocketName = view.findViewById(R.id.rocketsItemText);
+            successRate = view.findViewById(R.id.rocketsItemSuccessRate);
+            launchCost = view.findViewById(R.id.rocketsItemLaunchCost);
+            image = view.findViewById(R.id.rocketsItemImage);
             itemView.setOnClickListener(this);
         }
 

@@ -53,7 +53,7 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
 
         @Override
         public void onClick(View view) {
-            onItemClickListener.onItemClick(getBindingAdapterPosition());
+            onItemClickListener.onItemClick(getAdapterPosition());
         }
     }
 

@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.preference.PreferenceManager;
@@ -35,21 +36,24 @@ import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MapFragment extends Fragment implements SpaceXApiListener {
+public class MapFragment extends Fragment implements MapViewModel.LaunchpadListener {
 
     private FragmentMapBinding binding;
     private MapViewModel mapViewModel;
+    private UpcomingViewModel upcomingViewModel;
     private final ActivityResultLauncher<String> requestPermissionLauncher;
-    private SpaceXApiManager spaceXApiManager;
 
     public MapFragment() {
-        requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
+        requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts
+                        .RequestPermission(),
                 this::permissionCallback);
     }
 
@@ -58,6 +62,8 @@ public class MapFragment extends Fragment implements SpaceXApiListener {
     {
         super.onCreate(savedInstanceState);
         this.mapViewModel = new ViewModelProvider(requireActivity()).get(MapViewModel.class);
+        this.upcomingViewModel = new ViewModelProvider(requireActivity()).get(UpcomingViewModel.class);
+        this.mapViewModel.addLaunchpadListener(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -71,11 +77,6 @@ public class MapFragment extends Fragment implements SpaceXApiListener {
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
         initMap();
-
-        this.spaceXApiManager = new SpaceXApiManager(ctx);
-        this.spaceXApiManager.addListener(this);
-        this.spaceXApiManager.getLaunchPadsData();
-
         askPermissions(ctx);
 
         // Inflate the layout for this fragment
@@ -94,15 +95,14 @@ public class MapFragment extends Fragment implements SpaceXApiListener {
         mapController.setCenter(gPt);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
-    public void onLaunchpadsAvailable(List<Launchpad> launchpads) {
-        List<GeoPoint> geoPointList = launchpads.stream()
-                .map((x) -> new GeoPoint(x.getLatitude(), x.getLongitude()))
-                .collect(Collectors.toList());
-
-        MapUtils.AddPoisToMap(binding.mapview, geoPointList);
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.N)
+//    public void onLaunchpadsAvailable(Collection<Launchpad> launchpads) {
+//        List<GeoPoint> geoPointList = launchpads.stream()
+//                .map((x) -> new GeoPoint(x.getLatitude(), x.getLongitude()))
+//                .collect(Collectors.toList());
+//
+//        MapUtils.AddPoisToMap(binding.mapview, geoPointList);
+//    }
 
     private void askPermissions(Context context) {
         if (ContextCompat.checkSelfPermission(
@@ -133,5 +133,15 @@ public class MapFragment extends Fragment implements SpaceXApiListener {
         {
             addLocationToMap();
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onLaunchpadAvailable(List<Launchpad> newLaunchpads) {
+        List<GeoPoint> geoPointList = newLaunchpads.stream()
+                .map((x) -> new GeoPoint(x.getLatitude(), x.getLongitude()))
+                .collect(Collectors.toList());
+
+        MapUtils.AddPoisToMap(binding.mapview, geoPointList);
     }
 }

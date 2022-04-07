@@ -25,17 +25,17 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    private SpaceXApiManager spaceXApiManager;
+//    private SpaceXApiManager spaceXApiManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        spaceXApiManager = new SpaceXApiManager(this);
+//        spaceXApiManager = new SpaceXApiManager(this);
 
-        UpcomingViewModel upcomingViewModel = new ViewModelProvider(this, new ViewModelFactory(spaceXApiManager)).get(UpcomingViewModel.class);
-        MapViewModel mapViewModel = new ViewModelProvider(this, new ViewModelFactory(spaceXApiManager)).get(MapViewModel.class);
-        RocketsViewModel rocketsViewModel = new ViewModelProvider(this, new ViewModelFactory(spaceXApiManager)).get(RocketsViewModel.class);
+//        UpcomingViewModel upcomingViewModel = new ViewModelProvider(this, new ViewModelFactory(this.getApplication(), spaceXApiManager)).get(UpcomingViewModel.class);
+//        MapViewModel mapViewModel = new ViewModelProvider(this, new ViewModelFactory(this.getApplication(), spaceXApiManager)).get(MapViewModel.class);
+//        RocketsViewModel rocketsViewModel = new ViewModelProvider(this, new ViewModelFactory(this.getApplication(), spaceXApiManager)).get(RocketsViewModel.class);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

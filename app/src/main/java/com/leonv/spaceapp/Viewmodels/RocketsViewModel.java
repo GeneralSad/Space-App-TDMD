@@ -1,5 +1,8 @@
 package com.leonv.spaceapp.Viewmodels;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,27 +15,22 @@ import com.leonv.spaceapp.Models.Landpad;
 import com.leonv.spaceapp.Models.Launchpad;
 import com.leonv.spaceapp.Models.Payload;
 import com.leonv.spaceapp.Models.Rocket;
+import com.leonv.spaceapp.SpaceApp;
 
-public class RocketsViewModel extends ViewModel implements SpaceXApiListener {
+public class RocketsViewModel extends AndroidViewModel implements SpaceXApiListener {
 
     private static final String LOGTAG = RocketsViewModel.class.getName();
 
     private MutableLiveData<String> mText;
-    private SpaceXApiManager spaceXApiManager;
+    private final SpaceXApiManager spaceXApiManager;
 
-    //TODO: This need to somehow be able to be removed like in UpcomingViewModel, just don't know how or why
-    public RocketsViewModel() {
+    public RocketsViewModel(Application application) {
+        super(application);
         mText = new MutableLiveData<>();
         mText.setValue("This is rockets fragment");
-    }
 
-    public RocketsViewModel(SpaceXApiManager spaceXApiManager) {
-
-        this.spaceXApiManager = spaceXApiManager;
+        this.spaceXApiManager = ((SpaceApp)application).getApiManager();
         this.spaceXApiManager.addListener(this);
-
-        mText = new MutableLiveData<>();
-        mText.setValue("This is rockets fragment");
     }
 
     public LiveData<String> getText() {

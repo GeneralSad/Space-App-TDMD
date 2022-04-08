@@ -139,7 +139,7 @@ public class Flight implements Serializable {
 
     public String getLaunchDate() {
 
-        String launchDate = "";
+        String launchDate;
 
         if (datePrecision.equals("half") || datePrecision.equals("quarter") | datePrecision.equals("year")) {
             SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
@@ -152,7 +152,7 @@ public class Flight implements Serializable {
         } else {
             SimpleDateFormat dayFormat = new SimpleDateFormat("d MMMM yyyy");
             dayFormat.setTimeZone(TimeZone.getDefault());
-            launchDate = dayFormat.format(launchDateUtc);
+            launchDate = dayFormat.format(launchDateUtc) + " " + getLaunchTime();
         }
 
         if (launchDateUtc == null || isTBD) {
@@ -165,9 +165,9 @@ public class Flight implements Serializable {
     }
 
     private String getLaunchTime() {
-        SimpleDateFormat yearFormat = new SimpleDateFormat("HH:mm");
-        yearFormat.setTimeZone(TimeZone.getDefault());
-        return yearFormat.format(launchDateUtc);
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
+        hourFormat.setTimeZone(TimeZone.getDefault());
+        return hourFormat.format(launchDateUtc);
     }
 
 }

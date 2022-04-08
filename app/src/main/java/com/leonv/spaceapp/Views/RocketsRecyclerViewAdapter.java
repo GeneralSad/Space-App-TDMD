@@ -8,10 +8,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.Rocket;
 import com.leonv.spaceapp.OnItemClickListener;
 import com.leonv.spaceapp.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +37,10 @@ public class RocketsRecyclerViewAdapter extends RecyclerView.Adapter<RocketsRecy
     @Override
     public void onBindViewHolder(final RocketsViewHolder holder, int position) {
         holder.rocketName.setText(rockets.get(position).getName());
-        holder.successRate.setText(Integer.toString(rockets.get(position).getSuccesRate()) + "%");
-        holder.launchCost.setText("$" + Integer.toString(rockets.get(position).getLaunchCostDollar()));
+        holder.successRate.setText(String.format("Success rate: %s%%", rockets.get(position).getSuccessRate()));
+        holder.launchCost.setText(String.format("Cost: %s Million USD", rockets.get(position).getLaunchCostDollar() / 1000000.0));
         holder.rocket = rockets.get(position);
+        Picasso.get().load(rockets.get(position).getImage()).into(holder.image);
     }
 
     public void updateRockets(List<Rocket> rockets) {

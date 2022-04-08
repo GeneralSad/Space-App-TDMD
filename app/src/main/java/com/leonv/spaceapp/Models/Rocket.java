@@ -27,13 +27,14 @@ public class Rocket {
     private int stages;
     private int boosters;
     private int launchCostDollar;
-    private int succesRate;
+    private int successRate;
     private String company;
     private String wikipediaLink;
     private String description;
     private String rocketId;
+    private String image;
 
-    public Rocket(int height, int diameter, int mass, boolean FS_Reusable, int FS_Engines, int FS_FuelInTons, int SS_Engines, int SS_FuelInTons, String engines_Type, int engines_EngineLossMax, String propellant1, String propellant2, double TWR, ArrayList<PayloadWeight> payload_Weights, String name, String type, boolean active, int stages, int boosters, int launchCostDollar, int succesRate, String company, String wikipediaLink, String description, String rocketId) {
+    public Rocket(int height, int diameter, int mass, boolean FS_Reusable, int FS_Engines, int FS_FuelInTons, int SS_Engines, int SS_FuelInTons, String engines_Type, int engines_EngineLossMax, String propellant1, String propellant2, double TWR, ArrayList<PayloadWeight> payload_Weights, String name, String type, boolean active, int stages, int boosters, int launchCostDollar, int successRate, String company, String wikipediaLink, String description, String rocketId, String image) {
         this.height = height;
         this.diameter = diameter;
         this.mass = mass;
@@ -54,11 +55,12 @@ public class Rocket {
         this.stages = stages;
         this.boosters = boosters;
         this.launchCostDollar = launchCostDollar;
-        this.succesRate = succesRate;
+        this.successRate = successRate;
         this.company = company;
         this.wikipediaLink = wikipediaLink;
         this.description = description;
         this.rocketId = rocketId;
+        this.image = image;
     }
 
     public int getHeight() {
@@ -141,8 +143,8 @@ public class Rocket {
         return launchCostDollar;
     }
 
-    public int getSuccesRate() {
-        return succesRate;
+    public int getSuccessRate() {
+        return successRate;
     }
 
     public String getCompany() {
@@ -160,4 +162,9 @@ public class Rocket {
     public String getRocketId() {
         return rocketId;
     }
+
+    public String getImage() {
+        return image;
+    }
+
 }

@@ -138,26 +138,29 @@ public class Flight implements Serializable {
     }
 
     public String getLaunchDate() {
+
+        String launchDate = "";
+
+        if (datePrecision.equals("half") || datePrecision.equals("quarter") | datePrecision.equals("year")) {
+            SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+            yearFormat.setTimeZone(TimeZone.getDefault());
+            launchDate = yearFormat.format(launchDateUtc);
+        } else if (datePrecision.equals("month")) {
+            SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM yyyy");
+            monthFormat.setTimeZone(TimeZone.getDefault());
+            launchDate = monthFormat.format(launchDateUtc);
+        } else {
+            SimpleDateFormat dayFormat = new SimpleDateFormat("d MMMM yyyy");
+            dayFormat.setTimeZone(TimeZone.getDefault());
+            launchDate = dayFormat.format(launchDateUtc);
+        }
+
         if (launchDateUtc == null || isTBD) {
             return "TBD";
         } else if (isNET) {
-            if (datePrecision.equals("half") || datePrecision.equals("quarter") | datePrecision.equals("year")) {
-                SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
-                yearFormat.setTimeZone(TimeZone.getDefault());
-                return "NET" + yearFormat.format(launchDateUtc);
-            } else if (datePrecision.equals("month")) {
-                SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM yyyy");
-                monthFormat.setTimeZone(TimeZone.getDefault());
-                return "NET" + monthFormat.format(launchDateUtc);
-            } else {
-                SimpleDateFormat dayFormat = new SimpleDateFormat("d MMMM yyyy");
-                dayFormat.setTimeZone(TimeZone.getDefault());
-                return "NET" + dayFormat.format(launchDateUtc);
-            }
+            return "NET" + launchDate;
         } else {
-            SimpleDateFormat fullFormat = new SimpleDateFormat("d MMMM yyyy");
-            fullFormat.setTimeZone(TimeZone.getDefault());
-            return fullFormat.format(launchDateUtc);
+            return launchDate;
         }
     }
 

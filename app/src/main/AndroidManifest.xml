@@ -15,6 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SpaceApp">
+        <activity android:name=".Views.RocketInfoPopup"
+            android:parentActivityName=".MainActivity"
+            android:label="Details"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -424,7 +424,7 @@ public class SpaceXApiManager {
 
             JSONObject jsonEngines = jsonRocket.getJSONObject("engines");
             String engines_Type = jsonEngines.getString("type");
-            int engines_EngineLossMax = !jsonEngines.isNull("engine_loss_max") ? jsonEngines.getInt("engine_loss_max") : -1;
+            int engines_EngineLossMax = !jsonEngines.isNull("engine_loss_max") ? jsonEngines.getInt("engine_loss_max") : 0;
             String propellant1 = jsonEngines.getString("propellant_1");
             String propellant2 = jsonEngines.getString("propellant_2");
             int TWR = jsonEngines.getInt("thrust_to_weight");

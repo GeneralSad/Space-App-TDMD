@@ -65,7 +65,6 @@ public class RocketsRecyclerViewAdapter extends RecyclerView.Adapter<RocketsRecy
             intent.putExtra("propellant1", rocket.getPropellant1());
             intent.putExtra("propellant2", rocket.getPropellant2());
             intent.putExtra("TWR", rocket.getTWR());
-            intent.putExtra("type", rocket.getType());
             intent.putExtra("active", rocket.isActive());
             intent.putExtra("stages", rocket.getStages());
             intent.putExtra("boosters", rocket.getBoosters());

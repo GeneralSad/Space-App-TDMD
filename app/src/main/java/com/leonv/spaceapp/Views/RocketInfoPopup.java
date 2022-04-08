@@ -1,6 +1,8 @@
 package com.leonv.spaceapp.Views;
 
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,7 +19,7 @@ public class RocketInfoPopup extends AppCompatActivity {
 
     ImageView imageView;
     TextView textName, textHeight, textDiameter, textMass, textFS, textSS, textEnginesType, textEnginesLossMax,
-            textProp1, textProp2, textTWR, textType, textActive, textStages, textBoosters, textLaunchCost,
+            textProp1, textProp2, textTWR, textActive, textStages, textBoosters, textLaunchCost,
             textSuccessRate, textCompany, textWikipedia, textDescription;
 
     private int height;
@@ -35,7 +37,6 @@ public class RocketInfoPopup extends AppCompatActivity {
     private double TWR;
 
     private String name;
-    private String type;
     private boolean active;
     private int stages;
     private int boosters;
@@ -63,7 +64,6 @@ public class RocketInfoPopup extends AppCompatActivity {
         textProp1 = findViewById(R.id.rocketPopupProp1);
         textProp2 = findViewById(R.id.rocketPopupProp2);
         textTWR = findViewById(R.id.rocketPopupTWR);
-        textType = findViewById(R.id.rocketPopupType);
         textActive = findViewById(R.id.rocketPopupActive);
         textStages = findViewById(R.id.rocketPopupStages);
         textBoosters = findViewById(R.id.rocketPopupBoosters);
@@ -94,8 +94,7 @@ public class RocketInfoPopup extends AppCompatActivity {
             engineLossMax = getIntent().getIntExtra("enginesLossMax", -1);
             propellant1 = getIntent().getStringExtra("propellant1");
             propellant2 = getIntent().getStringExtra("propellant2");
-            TWR = getIntent().getIntExtra("TWR", -1);
-            type = getIntent().getStringExtra("type");
+            TWR = getIntent().getDoubleExtra("TWR", -1);
             active = getIntent().getBooleanExtra("active", true);
             stages = getIntent().getIntExtra("stages", -1);
             boosters = getIntent().getIntExtra("boosters", -1);
@@ -117,24 +116,24 @@ public class RocketInfoPopup extends AppCompatActivity {
 
         Picasso.get().load(image).into(imageView);
         textName.setText(name);
-        textHeight.setText(Integer.toString(height));
-        textDiameter.setText(Integer.toString(diameter));
-        textMass.setText(Integer.toString(mass));
-        textFS.setText(FSEngines + " : " + FSReusable + " : " + FSFuelInTons);
-        textSS.setText(SSEngines + " : " + SSFuelInTons);
-        textEnginesType.setText(engines_Type);
-        textEnginesLossMax.setText(Integer.toString(engineLossMax));
-        textProp1.setText(propellant1);
-        textProp2.setText(propellant2);
-        textTWR.setText(Double.toString(TWR));
-        textType.setText(type);
-        textActive.setText(Boolean.toString(active));
-        textStages.setText(Integer.toString(stages));
-        textBoosters.setText(Integer.toString(boosters));
-        textLaunchCost.setText(Integer.toString(launchCostDollar));
-        textSuccessRate.setText(Integer.toString(successRate));
-        textCompany.setText(company);
-        textWikipedia.setText(wikipediaLink);
+        textHeight.setText("Height: " + Integer.toString(height) + " Meters");
+        textDiameter.setText("Length: " + Integer.toString(diameter) + " Meters");
+        textMass.setText("Mass: " + Integer.toString(mass) + " Kg");
+        textFS.setText("First Stage\n\t\tEngines: " + FSEngines + "\n\t\tFuel: " + FSFuelInTons+ ".000 Kg\n\t\tReusable: " + (FSReusable ? "Yes" : "No"));
+        textSS.setText("Second Stage\n\t\tEngines: " + SSEngines + "\n\t\tFuel: " + SSFuelInTons + ".000 Kg");
+        textEnginesType.setText("Engine Type: " + engines_Type);
+        textEnginesLossMax.setText("Max Engine Loss: " + Integer.toString(engineLossMax) + " engines");
+        textProp1.setText("Oxidizer: " + propellant1);
+        textProp2.setText("Combustible: " + propellant2);
+        textTWR.setText("Thrust to Weight Ratio: " + Double.toString(TWR));
+        textActive.setText("In use: " + (active ? "Yes" : "No"));
+        textStages.setText("Stages: " + Integer.toString(stages));
+        textBoosters.setText("Boosters: " + Integer.toString(boosters));
+        textLaunchCost.setText("Launch Cost: " + Double.toString(launchCostDollar / 1000000.0) + " Million USD");
+        textSuccessRate.setText("Success Rate: " + Integer.toString(successRate) + "%");
+        textCompany.setText("Made by: " + company);
+        textWikipedia.setText(Html.fromHtml("<a href=\"" + wikipediaLink + "\">Wikipedia</a>"));
+        textWikipedia.setMovementMethod(LinkMovementMethod.getInstance());
         textDescription.setText(description);
         Log.i(LOGTAG, "Set data");
 

@@ -28,12 +28,10 @@ public class UpcomingViewModel extends AndroidViewModel implements SpaceXApiList
 
     private static final String LOGTAG = UpcomingViewModel.class.getName();
 
-    private ArrayList<Flight> flights = new ArrayList<>();
-    private MutableLiveData<Flight> selectedFlight = new MutableLiveData<>();
-    private SpaceXApiManager spaceXApiManager;
-
-//    public UpcomingViewModel() {
-//    }
+    private final ArrayList<Flight> flights = new ArrayList<>();
+    private final MutableLiveData<Flight> selectedFlight = new MutableLiveData<>();
+    private final SpaceXApiManager spaceXApiManager;
+    private final ArrayList<UpcomingViewModel.FlightsListener> flightsListeners = new ArrayList<>();
 
     public UpcomingViewModel(@NonNull Application application) {
         super(application);
@@ -48,7 +46,11 @@ public class UpcomingViewModel extends AndroidViewModel implements SpaceXApiList
 
     @Override
     public void onFlightAvailable(Flight flight) {
+        if(this.flights.contains(flight))
+            return;
+
         this.flights.add(flight);
+        this.flightsListeners.forEach(x -> x.onFlightsAvailable(this.flights));
     }
 
     @Override
@@ -56,4 +58,25 @@ public class UpcomingViewModel extends AndroidViewModel implements SpaceXApiList
         Log.d(LOGTAG, "Pressed: " + flights.get(clickedPosition).getName());
         this.selectedFlight.setValue(flights.get(clickedPosition));
     }
+
+    public interface FlightsListener {
+        void onFlightsAvailable(List<Flight> flightList);
+    }
+
+    public void addFlightsListener(UpcomingViewModel.FlightsListener flightsListener)
+    {
+        if(this.flightsListeners.contains(flightsListener))
+            return;
+
+        this.flightsListeners.add(flightsListener);
+    }
+
+    public void removeFlightsListener(UpcomingViewModel.FlightsListener flightsListener)
+    {
+        if(!this.flightsListeners.contains(flightsListener))
+            return;
+
+        this.flightsListeners.remove(flightsListener);
+    }
+
 }

@@ -22,20 +22,25 @@ import android.view.ViewGroup;
 
 import com.leonv.spaceapp.API.SpaceXApiListener;
 import com.leonv.spaceapp.API.SpaceXApiManager;
+import com.leonv.spaceapp.LaunchpadViewHolder;
 import com.leonv.spaceapp.MapUtils;
+import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.Launchpad;
 import com.leonv.spaceapp.R;
 import com.leonv.spaceapp.Viewmodels.MapViewModel;
 import com.leonv.spaceapp.Viewmodels.UpcomingViewModel;
 import com.leonv.spaceapp.databinding.FragmentMapBinding;
+import com.leonv.spaceapp.popup.PopupLaunchpad;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -87,7 +92,7 @@ public class MapFragment extends Fragment implements MapViewModel.LaunchpadListe
         MapView mapView = binding.mapview;
 
         MapController mapController = (MapController) mapView.getController();
-        mapController.setZoom(15);
+        mapController.setZoom(10);
         mapView.setMaxZoomLevel(20.0);
         mapView.setMinZoomLevel(1.0);
         mapView.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.ALWAYS);
@@ -138,10 +143,14 @@ public class MapFragment extends Fragment implements MapViewModel.LaunchpadListe
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onLaunchpadAvailable(List<Launchpad> newLaunchpads) {
-        List<GeoPoint> geoPointList = newLaunchpads.stream()
-                .map((x) -> new GeoPoint(x.getLatitude(), x.getLongitude()))
+        List<LaunchpadViewHolder> launchpadViewHolders = newLaunchpads.stream()
+                .map((x) -> new LaunchpadViewHolder(this, binding.mapview, x, this.upcomingViewModel))
                 .collect(Collectors.toList());
 
-        MapUtils.AddPoisToMap(binding.mapview, geoPointList);
+        for (LaunchpadViewHolder launchpadViewHolder : launchpadViewHolders) {
+            Marker marker = launchpadViewHolder.create();
+            binding.mapview.getOverlays().add(marker);
+        }
+        binding.mapview.invalidate();
     }
 }

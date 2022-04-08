@@ -483,9 +483,9 @@ public class SpaceXApiManager {
 
 
             JSONObject links = jsonObject.getJSONObject("links");
-            String webcastLink = !links.isNull("webcast") ? links.getString("webcast") : "N/A";
-            String articleLink = !links.isNull("article") ? links.getString("article") : "N/A";
-            String wikipediaLink = !links.isNull("wikipedia") ? links.getString("wikipedia") : "N/A";
+            String webcastLink = !links.isNull("webcast") ? links.getString("webcast") : "";
+            String articleLink = !links.isNull("article") ? links.getString("article") : "";
+            String wikipediaLink = !links.isNull("wikipedia") ? links.getString("wikipedia") : "";
 
             JSONObject jsonPatch = links.getJSONObject("patch");
             String missionPatch = "";
@@ -495,12 +495,12 @@ public class SpaceXApiManager {
                 missionPatch = jsonPatch.getString("small");
             }
 
-            String staticFireDateUtc = !jsonObject.isNull("static_fire_date_utc") ? jsonObject.getString("static_fire_date_utc") : "N/A";
+            String staticFireDateUtc = !jsonObject.isNull("static_fire_date_utc") ? jsonObject.getString("static_fire_date_utc") : "";
             boolean isTBD = (!jsonObject.isNull("tbd") && jsonObject.getBoolean("tbd"));
             boolean isNET = (!jsonObject.isNull("net") && jsonObject.getBoolean("net"));
 
-            String rocketId = !jsonObject.isNull("rocket") ? jsonObject.getString("rocket") : "N/A";
-            String launchDetails = !jsonObject.isNull("details") ? jsonObject.getString("details") : "N/A";
+            String rocketId = !jsonObject.isNull("rocket") ? jsonObject.getString("rocket") : "";
+            String launchDetails = !jsonObject.isNull("details") ? jsonObject.getString("details") : "";
 
             JSONArray payloads = jsonObject.getJSONArray("payloads");
             ArrayList<String> payloadIds = new ArrayList<>();
@@ -508,7 +508,7 @@ public class SpaceXApiManager {
                 payloadIds.add(payloads.getString(i));
             }
 
-            String launchpadId = !jsonObject.isNull("launchpad") ? jsonObject.getString("launchpad") : "N/A";
+            String launchpadId = !jsonObject.isNull("launchpad") ? jsonObject.getString("launchpad") : "";
             int flightNumber = jsonObject.getInt("flight_number");
             String name = jsonObject.getString("name");
             String launchDateUtc = jsonObject.getString("date_utc");
@@ -520,8 +520,8 @@ public class SpaceXApiManager {
                 JSONObject rocketCore = jsonCores.getJSONObject(i);
                 int coreFlightNumber = !rocketCore.isNull("flight") ? rocketCore.getInt("flight") : -1;
                 boolean isReused = (!rocketCore.isNull("reused") && rocketCore.getBoolean("reused"));
-                String landingType = !rocketCore.isNull("landing_type") ? rocketCore.getString("landing_type") : "N/A";
-                String landpadId = !rocketCore.isNull("landpad") ? rocketCore.getString("landpad") : "N/A";
+                String landingType = !rocketCore.isNull("landing_type") ? rocketCore.getString("landing_type") : "";
+                String landpadId = !rocketCore.isNull("landpad") ? rocketCore.getString("landpad") : "";
 
                 RocketFlightCore core = new RocketFlightCore(coreFlightNumber, isReused, landingType, landpadId);
                 cores.add(core);

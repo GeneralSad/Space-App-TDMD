@@ -1,69 +1,70 @@
 package com.leonv.spaceapp.Viewmodels;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.leonv.spaceapp.API.SpaceXApiListener;
 import com.leonv.spaceapp.API.SpaceXApiManager;
-import com.leonv.spaceapp.Fragments.MapFragment;
-import com.leonv.spaceapp.Models.Flight;
-import com.leonv.spaceapp.Models.Landpad;
-import com.leonv.spaceapp.Models.Launchpad;
-import com.leonv.spaceapp.Models.Payload;
 import com.leonv.spaceapp.Models.Rocket;
+import com.leonv.spaceapp.OnItemClickListener;
 import com.leonv.spaceapp.SpaceApp;
 
-public class RocketsViewModel extends AndroidViewModel implements SpaceXApiListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class RocketsViewModel extends AndroidViewModel implements SpaceXApiListener, OnItemClickListener {
 
     private static final String LOGTAG = RocketsViewModel.class.getName();
 
-    private MutableLiveData<String> mText;
-    private final SpaceXApiManager spaceXApiManager;
+    private ArrayList<Rocket> rockets = new ArrayList<>();
+    private MutableLiveData<Rocket> selectedRocket = new MutableLiveData<>();
+    private SpaceXApiManager spaceXApiManager;
+    private final ArrayList<RocketsListener> rocketListeners = new ArrayList<>();
 
+    //TODO: This need to somehow be able to be removed like in UpcomingViewModel, just don't know how
     public RocketsViewModel(Application application) {
         super(application);
-        mText = new MutableLiveData<>();
-        mText.setValue("This is rockets fragment");
-
         this.spaceXApiManager = ((SpaceApp)application).getApiManager();
         this.spaceXApiManager.addListener(this);
+        this.spaceXApiManager.getRocketsData();
     }
 
-    public LiveData<String> getText() {
-        return mText;
-    }
-
-    @Override
-    public void onFlightAvailable(Flight flight) {
-
+    public ArrayList<Rocket> getRockets() {
+        return rockets;
     }
 
     @Override
-    public void onRocketAvailable(Rocket rocket) {
-
+    public void onRocketsAvailable(ArrayList<Rocket> rockets) {
+        this.rockets = rockets;
+        this.rocketListeners.forEach(x -> x.onRocketsAvailable(this.rockets));
     }
 
     @Override
-    public void onPayloadAvailable(Payload payload) {
-
+    public void onItemClick(int clickedPosition) {
+        Log.d(LOGTAG, "Pressed: " + rockets.get(clickedPosition).getName());
+        this.selectedRocket.setValue(rockets.get(clickedPosition));
     }
 
-    @Override
-    public void onLaunchpadAvailable(Launchpad launchpad) {
-
+    public interface RocketsListener{
+        void onRocketsAvailable(List<Rocket> rocketList);
     }
 
-    @Override
-    public void onLandpadAvailable(Landpad landpad) {
+    public void addRocketsListener(RocketsListener rocketsListener)
+    {
+        if(this.rocketListeners.contains(rocketsListener))
+            return;
 
+        this.rocketListeners.add(rocketsListener);
     }
 
-    @Override
-    public void onDataError(Error error) {
+    public void removeRocketsListener(RocketsListener rocketsListener)
+    {
+        if(!this.rocketListeners.contains(rocketsListener))
+            return;
 
+        this.rocketListeners.remove(rocketsListener);
     }
 }

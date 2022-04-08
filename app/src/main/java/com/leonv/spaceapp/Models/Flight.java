@@ -1,9 +1,13 @@
 package com.leonv.spaceapp.Models;
 
-import com.leonv.spaceapp.Fragments.MapFragment;
-
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class Flight implements Serializable {
 
@@ -13,7 +17,7 @@ public class Flight implements Serializable {
     private String webcastLink;
     private String articleLink;
     private String wikipediaLink;
-    private String staticFireDateUtc;
+    private Date staticFireDateUtc;
     private boolean isTBD;
     private boolean isNET;
     private String rocketId;
@@ -22,17 +26,21 @@ public class Flight implements Serializable {
     private String launchpadId;
     private int flightNumber;
     private String name;
-    private String launchDateUtc;
+    private Date launchDateUtc;
     private String datePrecision;
     private ArrayList<RocketFlightCore> cores;
     private String flightId;
+    private String missionPatch;
 
-    public Flight(boolean hasReusedFairings, String webcastLink, String articleLink, String wikipediaLink, String staticFireDateUtc, boolean isTBD, boolean isNET, String rocketId, String launchDetails, ArrayList<String> payloadIds, String launchpadId, int flightNumber, String name, String launchDateUtc, String datePrecision, ArrayList<RocketFlightCore> cores, String flightId) {
+    private SimpleDateFormat dateFormat;
+
+    public Flight(boolean hasReusedFairings, String webcastLink, String articleLink, String wikipediaLink, String staticFireDateUtc, boolean isTBD, boolean isNET, String rocketId, String launchDetails, ArrayList<String> payloadIds, String launchpadId, int flightNumber, String name, String launchDateUtc, String datePrecision, ArrayList<RocketFlightCore> cores, String flightId, String missionPatch) {
+        this.dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+
         this.hasReusedFairings = hasReusedFairings;
         this.webcastLink = webcastLink;
         this.articleLink = articleLink;
         this.wikipediaLink = wikipediaLink;
-        this.staticFireDateUtc = staticFireDateUtc;
         this.isTBD = isTBD;
         this.isNET = isNET;
         this.rocketId = rocketId;
@@ -41,10 +49,22 @@ public class Flight implements Serializable {
         this.launchpadId = launchpadId;
         this.flightNumber = flightNumber;
         this.name = name;
-        this.launchDateUtc = launchDateUtc;
+
+        try {
+            if (!staticFireDateUtc.equals("N/A")) {
+                this.staticFireDateUtc = dateFormat.parse(staticFireDateUtc);
+            }
+            if (!launchDateUtc.equals("N/A")) {
+                this.launchDateUtc = dateFormat.parse(launchDateUtc);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         this.datePrecision = datePrecision;
         this.cores = cores;
         this.flightId = flightId;
+        this.missionPatch = missionPatch;
     }
 
     public boolean hasReusedFairings() {
@@ -61,10 +81,6 @@ public class Flight implements Serializable {
 
     public String getWikipediaLink() {
         return wikipediaLink;
-    }
-
-    public String getStaticFireDateUtc() {
-        return staticFireDateUtc;
     }
 
     public boolean isTBD() {
@@ -99,10 +115,6 @@ public class Flight implements Serializable {
         return name;
     }
 
-    public String getLaunchDateUtc() {
-        return launchDateUtc;
-    }
-
     public String getDatePrecision() {
         return datePrecision;
     }
@@ -114,4 +126,48 @@ public class Flight implements Serializable {
     public String getFlightId() {
         return flightId;
     }
+
+    public String getMissionPatch() {
+        return missionPatch;
+    }
+
+    public String getStaticFireDate() {
+        SimpleDateFormat yearFormat = new SimpleDateFormat("d MMMM yyyy");
+        yearFormat.setTimeZone(TimeZone.getDefault());
+        return yearFormat.format(staticFireDateUtc);
+    }
+
+    public String getLaunchDate() {
+
+        String launchDate;
+
+        if (datePrecision.equals("half") || datePrecision.equals("quarter") | datePrecision.equals("year")) {
+            SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+            yearFormat.setTimeZone(TimeZone.getDefault());
+            launchDate = yearFormat.format(launchDateUtc);
+        } else if (datePrecision.equals("month")) {
+            SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM yyyy");
+            monthFormat.setTimeZone(TimeZone.getDefault());
+            launchDate = monthFormat.format(launchDateUtc);
+        } else {
+            SimpleDateFormat dayFormat = new SimpleDateFormat("d MMMM yyyy");
+            dayFormat.setTimeZone(TimeZone.getDefault());
+            launchDate = dayFormat.format(launchDateUtc) + " " + getLaunchTime();
+        }
+
+        if (launchDateUtc == null || isTBD) {
+            return "TBD";
+        } else if (isNET) {
+            return "NET" + launchDate;
+        } else {
+            return launchDate;
+        }
+    }
+
+    private String getLaunchTime() {
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
+        hourFormat.setTimeZone(TimeZone.getDefault());
+        return hourFormat.format(launchDateUtc);
+    }
+
 }

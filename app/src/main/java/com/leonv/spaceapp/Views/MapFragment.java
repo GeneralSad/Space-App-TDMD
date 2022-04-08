@@ -1,4 +1,4 @@
-package com.leonv.spaceapp.Fragments;
+package com.leonv.spaceapp.Views;
 
 import android.Manifest;
 import android.content.Context;
@@ -26,9 +26,7 @@ import com.leonv.spaceapp.LaunchpadViewHolder;
 import com.leonv.spaceapp.MapUtils;
 import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.Launchpad;
-import com.leonv.spaceapp.R;
 import com.leonv.spaceapp.Viewmodels.MapViewModel;
-import com.leonv.spaceapp.Viewmodels.UpcomingViewModel;
 import com.leonv.spaceapp.databinding.FragmentMapBinding;
 import com.leonv.spaceapp.popup.PopupLaunchpad;
 

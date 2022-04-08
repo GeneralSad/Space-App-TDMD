@@ -5,53 +5,56 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:id="@+id/upcomingItemLayout">
+    android:id="@+id/rocketsItemLayout">
 
     <ImageView
-        android:layout_margin="10dp"
-        android:id="@+id/upcomingItemImage"
+        android:id="@+id/rocketsItemImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginEnd="16dp"
+        android:layout_margin="10dp"
         android:src="@drawable/rocket"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/upcomingItemTextBlock"
+        android:id="@+id/rocketsItemTextBlock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/upcomingItemImage"
+        app:layout_constraintStart_toEndOf="@id/rocketsItemImage"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.4">
 
         <TextView
-            android:id="@+id/upcomingItemText"
+            android:id="@+id/rocketsItemText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:text="Name placeholder"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/upcomingItemTime"
+            android:id="@+id/rocketsItemSuccessRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time placeholder"
+            android:layout_marginStart="16dp"
+            android:text="Successrate placeholder"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/upcomingItemRocket"
+            android:id="@+id/rocketsItemLaunchCost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rocket placeholder"
+            android:layout_marginStart="16dp"
+            android:text="Cost placeholder"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="15sp"/>
 

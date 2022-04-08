@@ -63,6 +63,37 @@ public class SpaceXApiManager {
     }
 
     //TODO: Every get...Data method is repeating code, maybe find a way to do this better
+
+    public void getRocketsData() {
+        final String url = "https://api.spacexdata.com/v4/rockets";
+
+        final JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                response -> {
+                    Log.d(LOGTAG, "Volley response: " + response.toString());
+
+                    try {
+                        ArrayList<Rocket> rockets = new ArrayList<>(response.length());
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject jsonRocket = response.getJSONObject(i);
+                            Rocket rocket = createRocket(jsonRocket);
+                            rockets.add(rocket);
+                        }
+
+                        for (SpaceXApiListener listener : listeners) {
+                            listener.onRocketsAvailable(rockets);
+                        }
+                    } catch (JSONException exception) {
+                        Log.e(LOGTAG, "Error while parsing JSON data: " + exception.getLocalizedMessage());
+                    }
+                },
+                error -> {
+                    Log.e(LOGTAG, error.getLocalizedMessage());
+                    listeners.forEach(listener -> listener.onDataError(new Error(error.getLocalizedMessage())));
+                }
+        );
+        this.queue.add(request);
+    }
+
     public void getLaunchPadData(String id) {
         final String url = "https://api.spacexdata.com/v4/launchpads/" + id;
 
@@ -393,7 +424,7 @@ public class SpaceXApiManager {
 
             JSONObject jsonEngines = jsonRocket.getJSONObject("engines");
             String engines_Type = jsonEngines.getString("type");
-            int engines_EngineLossMax = jsonEngines.getInt("engine_loss_max");
+            int engines_EngineLossMax = !jsonEngines.isNull("engine_loss_max") ? jsonEngines.getInt("engine_loss_max") : -1;
             String propellant1 = jsonEngines.getString("propellant_1");
             String propellant2 = jsonEngines.getString("propellant_2");
             int TWR = jsonEngines.getInt("thrust_to_weight");
@@ -420,11 +451,14 @@ public class SpaceXApiManager {
             String description = jsonRocket.getString("description");
             String rocketId = jsonRocket.getString("id");
 
+            JSONArray jsonImages = jsonRocket.getJSONArray("flickr_images");
+            String image = !jsonImages.isNull(0) ? jsonImages.getString(0) : "";
+
             Log.d(LOGTAG, "Creating rocket");
             Rocket rocket = new Rocket(height, diameter, mass, FS_reusable, FS_Engines, FS_FuelInTons,
                     SS_Engines, SS_FuelInTons, engines_Type, engines_EngineLossMax, propellant1,
                     propellant2, TWR, payload_weights, name, type, active, stages, boosters, launchCostDollar,
-                    succesRate, company, wikipediaLink, description, rocketId);
+                    succesRate, company, wikipediaLink, description, rocketId, image);
             return rocket;
 
         } catch (JSONException exception) {
@@ -452,6 +486,14 @@ public class SpaceXApiManager {
             String webcastLink = !links.isNull("webcast") ? links.getString("webcast") : "N/A";
             String articleLink = !links.isNull("article") ? links.getString("article") : "N/A";
             String wikipediaLink = !links.isNull("wikipedia") ? links.getString("wikipedia") : "N/A";
+
+            JSONObject jsonPatch = links.getJSONObject("patch");
+            String missionPatch = "";
+            if (!jsonPatch.isNull("original")) {
+                missionPatch = jsonPatch.getString("original");
+            } else if (!jsonPatch.isNull("small")) {
+                missionPatch = jsonPatch.getString("small");
+            }
 
             String staticFireDateUtc = !jsonObject.isNull("static_fire_date_utc") ? jsonObject.getString("static_fire_date_utc") : "N/A";
             boolean isTBD = (!jsonObject.isNull("tbd") && jsonObject.getBoolean("tbd"));
@@ -490,7 +532,7 @@ public class SpaceXApiManager {
             Log.d(LOGTAG, "Creating flight");
             Flight flight = new Flight(hasReusedFairings, webcastLink, articleLink, wikipediaLink,
                     staticFireDateUtc, isTBD, isNET, rocketId, launchDetails, payloadIds, launchpadId,
-                    flightNumber, name, launchDateUtc, datePrecision, cores, flightId);
+                    flightNumber, name, launchDateUtc, datePrecision, cores, flightId, missionPatch);
 
             return flight;
 

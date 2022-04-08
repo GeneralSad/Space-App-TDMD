@@ -10,5 +10,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".Fragments.UpcomingFragment"
-    tools:listitem=""/>
+    tools:context=".Views.UpcomingFragment"
+    tools:listitem="@layout/upcoming_fragment_item"/>

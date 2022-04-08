@@ -44,7 +44,7 @@ public class UpcomingFragment extends Fragment implements UpcomingViewModel.Flig
 
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-            flightsRecyclerViewAdapter = new FlightsRecyclerViewAdapter(upcomingViewModel.getFlights(), upcomingViewModel);
+            flightsRecyclerViewAdapter = new FlightsRecyclerViewAdapter(getContext(), upcomingViewModel.getFlights(), upcomingViewModel);
             recyclerView.setAdapter(flightsRecyclerViewAdapter);
         }
 

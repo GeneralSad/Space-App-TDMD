@@ -13,9 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.leonv.spaceapp.R;
 import com.squareup.picasso.Picasso;
 
-public class RocketInfoPopup extends AppCompatActivity {
+public class RocketInfoFragment extends AppCompatActivity {
 
-    private static final String LOGTAG = RocketInfoPopup.class.getName();
+    private static final String LOGTAG = RocketInfoFragment.class.getName();
 
     ImageView imageView;
     TextView textName, textHeight, textDiameter, textMass, textFS, textSS, textEnginesType, textEnginesLossMax,
@@ -50,7 +50,7 @@ public class RocketInfoPopup extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.rocket_info_popup);
+        setContentView(R.layout.rocket_info_fragment);
 
         imageView = findViewById(R.id.rocketPopupImage);
         textName = findViewById(R.id.rocketPopupName);
@@ -116,29 +116,27 @@ public class RocketInfoPopup extends AppCompatActivity {
 
         Picasso.get().load(image).into(imageView);
         textName.setText(name);
-        textHeight.setText("Height: " + Integer.toString(height) + " Meters");
-        textDiameter.setText("Length: " + Integer.toString(diameter) + " Meters");
-        textMass.setText("Mass: " + Integer.toString(mass) + " Kg");
-        textFS.setText("First Stage\n\t\tEngines: " + FSEngines + "\n\t\tFuel: " + FSFuelInTons+ ".000 Kg\n\t\tReusable: " + (FSReusable ? "Yes" : "No"));
-        textSS.setText("Second Stage\n\t\tEngines: " + SSEngines + "\n\t\tFuel: " + SSFuelInTons + ".000 Kg");
-        textEnginesType.setText("Engine Type: " + engines_Type);
-        textEnginesLossMax.setText("Max Engine Loss: " + Integer.toString(engineLossMax) + " engines");
-        textProp1.setText("Oxidizer: " + propellant1);
-        textProp2.setText("Combustible: " + propellant2);
-        textTWR.setText("Thrust to Weight Ratio: " + Double.toString(TWR));
-        textActive.setText("In use: " + (active ? "Yes" : "No"));
-        textStages.setText("Stages: " + Integer.toString(stages));
-        textBoosters.setText("Boosters: " + Integer.toString(boosters));
-        textLaunchCost.setText("Launch Cost: " + Double.toString(launchCostDollar / 1000000.0) + " Million USD");
-        textSuccessRate.setText("Success Rate: " + Integer.toString(successRate) + "%");
-        textCompany.setText("Made by: " + company);
+        textHeight.setText(String.format("Height: %d Meters", height));
+        textDiameter.setText(String.format("Length: %d Meters", diameter));
+        textMass.setText(String.format("Mass: %d Kg", mass));
+        textFS.setText(String.format("First Stage\n\t\tEngines: %d\n\t\tFuel: %d.000 Kg\n\t\tReusable: %s", FSEngines, FSFuelInTons, FSReusable ? "Yes" : "No"));
+        textSS.setText(String.format("Second Stage\n\t\tEngines: %d\n\t\tFuel: %d.000 Kg", SSEngines, SSFuelInTons));
+        textEnginesType.setText(String.format("Engine Type: %s", engines_Type));
+        textEnginesLossMax.setText(String.format("Max Engine Loss: %d engines", engineLossMax));
+        textProp1.setText(String.format("Oxidizer: %s", propellant1));
+        textProp2.setText(String.format("Combustible: %s", propellant2));
+        textTWR.setText(String.format("Thrust to Weight Ratio: %s", TWR));
+        textActive.setText(String.format("In use: %s", active ? "Yes" : "No"));
+        textStages.setText(String.format("Stages: %d", stages));
+        textBoosters.setText(String.format("Boosters: %d", boosters));
+        textLaunchCost.setText(String.format("Launch Cost: %s Million USD", launchCostDollar / 1000000.0));
+        textSuccessRate.setText(String.format("Success Rate: %d%%", successRate));
+        textCompany.setText(String.format("Made by: %s", company));
         textWikipedia.setText(Html.fromHtml("<a href=\"" + wikipediaLink + "\">Wikipedia</a>"));
         textWikipedia.setMovementMethod(LinkMovementMethod.getInstance());
         textDescription.setText(description);
         Log.i(LOGTAG, "Set data");
 
     }
-
-
 
 }

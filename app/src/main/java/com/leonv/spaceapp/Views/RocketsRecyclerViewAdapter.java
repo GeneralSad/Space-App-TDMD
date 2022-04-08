@@ -50,7 +50,7 @@ public class RocketsRecyclerViewAdapter extends RecyclerView.Adapter<RocketsRecy
         holder.rocket = rockets.get(position);
 
         holder.rocketItemLayout.setOnClickListener(itemView -> {
-            Intent intent = new Intent(context, RocketInfoPopup.class);
+            Intent intent = new Intent(context, RocketInfoFragment.class);
             intent.putExtra("name", rocket.getName());
             intent.putExtra("height", rocket.getHeight());
             intent.putExtra("diameter", rocket.getDiameter());
@@ -112,9 +112,6 @@ public class RocketsRecyclerViewAdapter extends RecyclerView.Adapter<RocketsRecy
         @Override
         public void onClick(View view) {
             onItemClickListener.onItemClick(getBindingAdapterPosition());
-
-//            this.rocketItemLayout.setOnClickListener();
-
         }
     }
 

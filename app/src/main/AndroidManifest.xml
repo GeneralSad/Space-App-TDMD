@@ -16,8 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpaceApp">
         <activity
-            android:name=".Views.RocketInfoPopup"
+            android:name=".Views.RocketInfoFragment"
             android:label="Rocket Info" />
+        <activity
+            android:name=".Views.FlightInfoFragment"
+            android:label="Flight Info" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

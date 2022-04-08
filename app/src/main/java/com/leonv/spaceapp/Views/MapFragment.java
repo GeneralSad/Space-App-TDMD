@@ -1,4 +1,4 @@
-package com.leonv.spaceapp.Fragments;
+package com.leonv.spaceapp.Views;
 
 import android.Manifest;
 import android.content.Context;
@@ -23,9 +23,7 @@ import com.leonv.spaceapp.API.SpaceXApiListener;
 import com.leonv.spaceapp.API.SpaceXApiManager;
 import com.leonv.spaceapp.MapUtils;
 import com.leonv.spaceapp.Models.Launchpad;
-import com.leonv.spaceapp.R;
 import com.leonv.spaceapp.Viewmodels.MapViewModel;
-import com.leonv.spaceapp.Viewmodels.UpcomingViewModel;
 import com.leonv.spaceapp.databinding.FragmentMapBinding;
 
 import org.osmdroid.config.Configuration;

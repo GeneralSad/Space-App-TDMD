@@ -134,7 +134,8 @@ public class Flight implements Serializable {
     public String getStaticFireDate() {
         SimpleDateFormat yearFormat = new SimpleDateFormat("d MMMM yyyy");
         yearFormat.setTimeZone(TimeZone.getDefault());
-        return yearFormat.format(staticFireDateUtc);
+        if (staticFireDateUtc != null) return yearFormat.format(staticFireDateUtc);
+        else return "TBD";
     }
 
     public String getLaunchDate() {

@@ -3,8 +3,6 @@ package com.leonv.spaceapp.Models;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
@@ -161,7 +159,7 @@ public class Flight implements Serializable {
         }
 
         if (isNET) {
-            return "NET" + launchDate;
+            return "NET " + launchDate;
         } else {
             return launchDate;
         }

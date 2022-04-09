@@ -23,9 +23,9 @@ public class UpcomingViewModel extends AndroidViewModel implements SpaceXApiList
 
     private static final String LOGTAG = UpcomingViewModel.class.getName();
 
-    private ArrayList<Flight> flights = new ArrayList<>();
-    private MutableLiveData<Flight> selectedFlight = new MutableLiveData<>();
-    private SpaceXApiManager spaceXApiManager;
+    private final ArrayList<Flight> flights = new ArrayList<>();
+    private final MutableLiveData<Flight> selectedFlight = new MutableLiveData<>();
+    private final SpaceXApiManager spaceXApiManager;
     private final ArrayList<UpcomingViewModel.FlightsListener> flightsListeners = new ArrayList<>();
 
     public UpcomingViewModel(@NonNull Application application) {
@@ -41,6 +41,9 @@ public class UpcomingViewModel extends AndroidViewModel implements SpaceXApiList
 
     @Override
     public void onFlightAvailable(Flight flight) {
+        if(this.flights.contains(flight))
+            return;
+
         this.flights.add(flight);
         this.flightsListeners.forEach(x -> x.onFlightsAvailable(this.flights));
     }

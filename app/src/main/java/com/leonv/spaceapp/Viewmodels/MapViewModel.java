@@ -33,10 +33,11 @@ public class MapViewModel extends AndroidViewModel implements SpaceXApiListener 
 
     private final HashMap<String, Launchpad> launchpads = new HashMap<>();
     private final ArrayList<LaunchpadListener> launchpadListeners = new ArrayList<>();
+    private SpaceXApiManager spaceXApiManager;
 
     public MapViewModel(@NonNull Application application) {
         super(application);
-        SpaceXApiManager spaceXApiManager = ((SpaceApp) application).getApiManager();
+        spaceXApiManager = ((SpaceApp) application).getApiManager();
         spaceXApiManager.addListener(this);
         spaceXApiManager.getLaunchPadsData();
     }
@@ -67,6 +68,10 @@ public class MapViewModel extends AndroidViewModel implements SpaceXApiListener 
 
     public HashMap<String, Launchpad> getLaunchPads(){
         return this.launchpads;
+    }
+
+    public void requestLaunchpads() {
+        spaceXApiManager.getLaunchPadsData();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

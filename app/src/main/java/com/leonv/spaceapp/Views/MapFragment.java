@@ -75,6 +75,9 @@ public class MapFragment extends Fragment implements MapViewModel.LaunchpadListe
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        mapViewModel.requestLaunchpads();
+        upcomingViewModel.requestFlights();
+
         binding = FragmentMapBinding.inflate(inflater, container, false);
 
         Context ctx = requireContext();

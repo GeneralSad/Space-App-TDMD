@@ -241,13 +241,13 @@ public class SpaceXApiManager {
                 response -> {
                     Log.d(LOGTAG, "Volley response: " + response.toString());
                     try {
-
+                        ArrayList<Flight> flights = new ArrayList<>(response.length());
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject jsonFlight = response.getJSONObject(i);
                             Flight flight = createFlight(jsonFlight);
-
+                            flights.add(flight);
                             for (SpaceXApiListener listener : listeners) {
-                                listener.onFlightAvailable(flight);
+                                listener.onFlightsAvailable(flights);
                             }
 
                         }

@@ -37,6 +37,8 @@ public class UpcomingFragment extends Fragment implements UpcomingViewModel.Flig
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        upcomingViewModel.requestFlights();
+
         View view = inflater.inflate(R.layout.upcoming_fragment, container, false);
 
         if (view instanceof RecyclerView) {

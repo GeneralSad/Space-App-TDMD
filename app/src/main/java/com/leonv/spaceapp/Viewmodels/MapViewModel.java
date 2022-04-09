@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.leonv.spaceapp.API.SpaceXApiListener;
 import com.leonv.spaceapp.API.SpaceXApiManager;
-import com.leonv.spaceapp.Fragments.MapFragment;
 import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.Landpad;
 import com.leonv.spaceapp.Models.Launchpad;

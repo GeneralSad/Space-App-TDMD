@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.leonv.spaceapp.Models.Flight;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,16 +35,16 @@ public class PopupLaunchesRecyclerViewAdapter extends RecyclerView.Adapter<Popup
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.flightName.setText(flights.get(position).getName());
-        holder.flightTime.setText(flights.get(position).getLaunchDateUtc());
+        holder.flightTime.setText(flights.get(position).getLaunchDate());
         holder.rocketName.setText(flights.get(position).getRocketId());
         holder.flight = flights.get(position);
 
-//        String missionPatch = flights.get(position).getMissionPatch();
-//        if (!missionPatch.isEmpty()) {
-//            Picasso.get().load(flights.get(position).getMissionPatch()).into(holder.missionPatch);
-//        } else {
-//            holder.missionPatch.setImageResource(R.drawable.rocket);
-//        }
+        String missionPatch = flights.get(position).getMissionPatch();
+        if (!missionPatch.isEmpty()) {
+            Picasso.get().load(flights.get(position).getMissionPatch()).into(holder.logo);
+        } else {
+            holder.logo.setImageResource(R.drawable.rocket);
+        }
     }
 
     @Override

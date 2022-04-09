@@ -25,6 +25,9 @@ public class PopupLaunchesRecyclerViewAdapter extends RecyclerView.Adapter<Popup
     private final List<Flight> flights;
     private final OnItemClickListener onItemClickListener;
 
+    private RecyclerView recyclerView;
+    private TextView emptyView;
+
     public PopupLaunchesRecyclerViewAdapter(ArrayList<Flight> items, OnItemClickListener onItemClickListener) {
         this.flights = items;
         this.onItemClickListener = onItemClickListener;

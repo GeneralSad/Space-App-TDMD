@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,7 +46,19 @@ public class PopupLaunchpad implements OnItemClickListener {
         RecyclerView recyclerView = (RecyclerView)popupView.findViewById(R.id.popup_launchpad_launches);
         recyclerView.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
 
+        TextView emptyView = popupView.findViewById(R.id.popup_launchpad_empty);
+
+        if (this.flights.isEmpty()) {
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
+
         PopupLaunchesRecyclerViewAdapter adapter = new PopupLaunchesRecyclerViewAdapter(this.flights, this);
+
         recyclerView.setAdapter(adapter);
 
         popupView.setOnTouchListener((v, event) -> {

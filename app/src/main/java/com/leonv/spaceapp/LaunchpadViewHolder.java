@@ -50,7 +50,7 @@ public class LaunchpadViewHolder implements UpcomingViewModel.FlightsListener {
         return true;
     }
 
-    private GeoPoint getGeoPoint(){
+    public GeoPoint getGeoPoint(){
         if(geoPoint == null) {
             this.geoPoint = new GeoPoint(this.launchpad.getLatitude(), this.launchpad.getLongitude());
         }
@@ -71,5 +71,9 @@ public class LaunchpadViewHolder implements UpcomingViewModel.FlightsListener {
                 this.flights.add(flight);
             }
         }
+    }
+
+    public Launchpad getLaunchpad() {
+        return launchpad;
     }
 }

@@ -39,7 +39,7 @@ public class PopupLaunchesRecyclerViewAdapter extends RecyclerView.Adapter<Popup
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.flightName.setText(flights.get(position).getName());
-        holder.flightTime.setText(flights.get(position).getLaunchDate());
+        holder.flightTime.setText(flights.get(position).getLaunchDateString());
         holder.rocketName.setText(flights.get(position).getRocketId());
         holder.flight = flights.get(position);
 
@@ -88,7 +88,7 @@ public class PopupLaunchesRecyclerViewAdapter extends RecyclerView.Adapter<Popup
                 intent.putExtra("staticDate", flight.getStaticFireDate());
                 intent.putExtra("details", flight.getLaunchDetails());
                 intent.putExtra("flightNumber", flight.getFlightNumber());
-                intent.putExtra("launchDate", flight.getLaunchDate());
+                intent.putExtra("launchDate", flight.getLaunchDateString());
                 intent.putExtra("missionPatch", flight.getMissionPatch());
             view.getContext().startActivity(intent);
             Log.i(LOGTAG, "Clicked on item");

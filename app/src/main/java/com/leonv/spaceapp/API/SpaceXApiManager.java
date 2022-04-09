@@ -62,6 +62,14 @@ public class SpaceXApiManager {
         listeners.add(listener);
     }
 
+    public void removeListener(SpaceXApiListener listener)
+    {
+        if(!this.listeners.contains(listener)){
+            return;
+        }
+        this.listeners.remove(listener);
+    }
+
     //TODO: Every get...Data method is repeating code, maybe find a way to do this better
 
     public void getRocketsData() {
@@ -242,6 +250,7 @@ public class SpaceXApiManager {
                     Log.d(LOGTAG, "Volley response: " + response.toString());
                     try {
 
+                        ArrayList<Flight> flights = new ArrayList<>();
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject jsonFlight = response.getJSONObject(i);
                             Flight flight = createFlight(jsonFlight);
@@ -249,7 +258,10 @@ public class SpaceXApiManager {
                             for (SpaceXApiListener listener : listeners) {
                                 listener.onFlightAvailable(flight);
                             }
-
+                            flights.add(flight);
+                        }
+                        for (SpaceXApiListener listener : listeners) {
+                            listener.onFlightsAvailable(flights);
                         }
 
                     } catch (JSONException exception) {

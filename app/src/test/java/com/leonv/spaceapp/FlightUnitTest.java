@@ -176,6 +176,15 @@ public class FlightUnitTest {
     }
 
     @Test
+    public void getLaunchDateDayTest() {
+        final String launchdate = "1 January 2022";
+        flight = new Flight(hasReusedFairings, webcastLink, articleLink, wikipediaLink, staticFireDateUtc, isTBD, isNET, rocketId,
+                launchDetails, payloadIds, launchpadId, flightNumber, name, launchDateUtc, "day", cores, flightId, missionPatch);
+
+        assertEquals(launchdate, flight.getLaunchDate());
+    }
+
+    @Test
     public void getLaunchDateNETTest() {
         final String launchdate = "NET 1 January 2022 13:00";
         flight = new Flight(hasReusedFairings, webcastLink, articleLink, wikipediaLink, staticFireDateUtc, isTBD, true, rocketId,

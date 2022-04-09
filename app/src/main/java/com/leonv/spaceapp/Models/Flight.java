@@ -152,10 +152,14 @@ public class Flight implements Serializable {
             SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM yyyy");
             monthFormat.setTimeZone(TimeZone.getDefault());
             launchDate = monthFormat.format(launchDateUtc);
-        } else {
+        } else if (datePrecision.equals("day")) {
             SimpleDateFormat dayFormat = new SimpleDateFormat("d MMMM yyyy");
             dayFormat.setTimeZone(TimeZone.getDefault());
-            launchDate = dayFormat.format(launchDateUtc) + " " + getLaunchTime();
+            launchDate = dayFormat.format(launchDateUtc);
+        } else {
+            SimpleDateFormat hourFormat = new SimpleDateFormat("d MMMM yyyy");
+            hourFormat.setTimeZone(TimeZone.getDefault());
+            launchDate = hourFormat.format(launchDateUtc) + " " + getLaunchTime();
         }
 
         if (isNET) {

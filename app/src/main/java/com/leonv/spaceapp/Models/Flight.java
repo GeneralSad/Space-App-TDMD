@@ -51,10 +51,10 @@ public class Flight implements Serializable {
         this.name = name;
 
         try {
-            if (!staticFireDateUtc.equals("N/A")) {
+            if (!staticFireDateUtc.isEmpty()) {
                 this.staticFireDateUtc = dateFormat.parse(staticFireDateUtc);
             }
-            if (!launchDateUtc.equals("N/A")) {
+            if (!launchDateUtc.isEmpty()) {
                 this.launchDateUtc = dateFormat.parse(launchDateUtc);
             }
         } catch (ParseException e) {
@@ -134,12 +134,17 @@ public class Flight implements Serializable {
     public String getStaticFireDate() {
         SimpleDateFormat yearFormat = new SimpleDateFormat("d MMMM yyyy");
         yearFormat.setTimeZone(TimeZone.getDefault());
-        return yearFormat.format(staticFireDateUtc);
+        if (staticFireDateUtc != null) return yearFormat.format(staticFireDateUtc);
+        else return "TBD";
     }
 
     public String getLaunchDate() {
 
         String launchDate;
+
+        if (launchDateUtc == null || isTBD) {
+            return "TBD";
+        }
 
         if (datePrecision.equals("half") || datePrecision.equals("quarter") | datePrecision.equals("year")) {
             SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
@@ -155,9 +160,7 @@ public class Flight implements Serializable {
             launchDate = dayFormat.format(launchDateUtc) + " " + getLaunchTime();
         }
 
-        if (launchDateUtc == null || isTBD) {
-            return "TBD";
-        } else if (isNET) {
+        if (isNET) {
             return "NET" + launchDate;
         } else {
             return launchDate;

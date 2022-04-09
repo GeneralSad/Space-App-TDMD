@@ -48,7 +48,7 @@ public class RocketsFragment extends Fragment implements RocketsViewModel.Rocket
 
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-            this.rocketsRecyclerViewAdapter = new RocketsRecyclerViewAdapter(rocketsViewModel.getRockets(), rocketsViewModel);
+            this.rocketsRecyclerViewAdapter = new RocketsRecyclerViewAdapter(getContext(), rocketsViewModel.getRockets(), rocketsViewModel);
             recyclerView.setAdapter(rocketsRecyclerViewAdapter);
         }
 

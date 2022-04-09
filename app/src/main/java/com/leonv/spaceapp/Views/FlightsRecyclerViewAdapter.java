@@ -1,7 +1,12 @@
 package com.leonv.spaceapp.Views;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +25,12 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
 
     private static final String LOGTAG = FlightsRecyclerViewAdapter.class.getName();
 
+    private Context context;
     private List<Flight> flights;
     private OnItemClickListener onItemClickListener;
 
-    public FlightsRecyclerViewAdapter(ArrayList<Flight> items, OnItemClickListener onItemClickListener) {
+    public FlightsRecyclerViewAdapter(Context context, ArrayList<Flight> items, OnItemClickListener onItemClickListener) {
+        this.context = context;
         this.flights = items;
         this.onItemClickListener = onItemClickListener;
     }
@@ -36,10 +43,28 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
 
     @Override
     public void onBindViewHolder(final FlightsViewHolder holder, int position) {
-        holder.flightName.setText(flights.get(position).getName());
-        holder.flight = flights.get(position);
-        holder.flightTime.setText(flights.get(position).getLaunchDate());
-        holder.flightRocket.setText(flights.get(position).getRocketId());
+        Flight flight = flights.get(position);
+
+        holder.flightName.setText(flight.getName());
+        holder.flight = flight;
+        holder.flightTime.setText(flight.getLaunchDate());
+        holder.flightRocket.setText(flight.getRocketId());
+
+        holder.itemLayout.setOnClickListener(itemView -> {
+            Intent intent = new Intent(context, FlightInfoFragment.class);
+            intent.putExtra("name", flight.getName());
+            intent.putExtra("reusedFairings", flight.hasReusedFairings());
+            intent.putExtra("webcast", flight.getWebcastLink());
+            intent.putExtra("article", flight.getArticleLink());
+            intent.putExtra("wikipedia", flight.getWikipediaLink());
+            intent.putExtra("staticDate", flight.getStaticFireDate());
+            intent.putExtra("details", flight.getLaunchDetails());
+            intent.putExtra("flightNumber", flight.getFlightNumber());
+            intent.putExtra("launchDate", flight.getLaunchDate());
+            intent.putExtra("missionPatch", flight.getMissionPatch());
+            context.startActivity(intent);
+            Log.i(LOGTAG, "Clicked on item");
+        });
 
         String missionPatch = flights.get(position).getMissionPatch();
         if (!missionPatch.isEmpty()) {
@@ -65,6 +90,7 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
         public TextView flightRocket;
         public Flight flight;
         public ImageView missionPatch;
+        public ConstraintLayout itemLayout;
 
         public FlightsViewHolder(View view) {
             super(view);
@@ -72,6 +98,7 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
             missionPatch = view.findViewById(R.id.upcomingItemImage);
             flightTime = view.findViewById(R.id.upcomingItemTime);
             flightRocket = view.findViewById(R.id.upcomingItemRocket);
+            itemLayout = view.findViewById(R.id.upcomingItemLayout);
             itemView.setOnClickListener(this);
         }
 

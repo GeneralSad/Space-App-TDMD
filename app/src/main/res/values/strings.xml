@@ -13,4 +13,5 @@
     <string name="menu_map">Map</string>
     <string name="menu_upcoming">Upcoming</string>
     <string name="menu_rockets">Rockets</string>
+    <string name="details">Details:</string>
 </resources>

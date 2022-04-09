@@ -2,7 +2,6 @@ package com.leonv.spaceapp;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -10,9 +9,7 @@ import static org.mockito.Mockito.mock;
 import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.RocketFlightCore;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class FlightUnitTest {
 
@@ -47,13 +44,6 @@ public class FlightUnitTest {
         flight = new Flight(hasReusedFairings, webcastLink, articleLink, wikipediaLink, staticFireDateUtc, isTBD, isNET, rocketId,
                 launchDetails, payloadIds, launchpadId, flightNumber, name, launchDateUtc, datePrecision, cores, flightId, missionPatch);
 
-    }
-
-    @Test(expected = ParseException.class)
-    public void constructorTest() {
-        Flight testFlight = Mockito.spy(Flight.class);
-        new Flight(hasReusedFairings, webcastLink, articleLink, wikipediaLink, staticFireDateUtc, isTBD, isNET, rocketId,
-                launchDetails, payloadIds, launchpadId, flightNumber, name, "launchDateUtc", datePrecision, cores, flightId, missionPatch);
     }
 
     @Test

@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface SpaceXApiListener {
     default void onFlightAvailable(Flight flight) {};
+    default void onFlightsAvailable(ArrayList<Flight> flights) {};
     default void onRocketAvailable(Rocket rocket) {};
     default void onRocketsAvailable(ArrayList<Rocket> rockets) {};
     default void onPayloadAvailable(Payload payload) {};

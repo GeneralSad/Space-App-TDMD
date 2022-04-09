@@ -1,14 +1,18 @@
 package com.leonv.spaceapp;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.leonv.spaceapp.Models.Flight;
+import com.leonv.spaceapp.Views.FlightInfoFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -53,6 +57,7 @@ public class PopupLaunchesRecyclerViewAdapter extends RecyclerView.Adapter<Popup
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public ConstraintLayout itemLayout;
         public TextView flightName;
         public TextView flightTime;
         public TextView rocketName;
@@ -65,15 +70,28 @@ public class PopupLaunchesRecyclerViewAdapter extends RecyclerView.Adapter<Popup
             flightTime = view.findViewById(R.id.upcomingItemTime);
             rocketName = view.findViewById(R.id.upcomingItemRocket);
             logo = view.findViewById(R.id.upcomingItemImage);
+            itemLayout = view.findViewById(R.id.upcomingItemLayout);
             itemView.setOnClickListener(this);
             logo.getLayoutParams().height = 80;
             logo.getLayoutParams().width = 80;
-//            logo.setLayoutParams(new ViewGroup.LayoutParams(100, 100));
         }
 
         @Override
         public void onClick(View view) {
             onItemClickListener.onItemClick(getBindingAdapterPosition());
+            Intent intent = new Intent(view.getContext(), FlightInfoFragment.class);
+                intent.putExtra("name", flight.getName());
+                intent.putExtra("reusedFairings", flight.hasReusedFairings());
+                intent.putExtra("webcast", flight.getWebcastLink());
+                intent.putExtra("article", flight.getArticleLink());
+                intent.putExtra("wikipedia", flight.getWikipediaLink());
+                intent.putExtra("staticDate", flight.getStaticFireDate());
+                intent.putExtra("details", flight.getLaunchDetails());
+                intent.putExtra("flightNumber", flight.getFlightNumber());
+                intent.putExtra("launchDate", flight.getLaunchDate());
+                intent.putExtra("missionPatch", flight.getMissionPatch());
+            view.getContext().startActivity(intent);
+            Log.i(LOGTAG, "Clicked on item");
         }
     }
 

@@ -31,7 +31,7 @@ public class SpaceXApiManager {
     private static SpaceXApiManager instance;
 
     private RequestQueue queue;
-    private ArrayList<SpaceXApiListener> listeners = new ArrayList<>();
+    private final ArrayList<SpaceXApiListener> listeners = new ArrayList<>();
 
     public SpaceXApiManager(Context context) {
         this.queue = Volley.newRequestQueue(context);
@@ -50,15 +50,19 @@ public class SpaceXApiManager {
     }
 
     public void addListener(SpaceXApiListener listener) {
-        listeners.add(listener);
+        synchronized (listeners) {
+            listeners.add(listener);
+        }
     }
 
     public void removeListener(SpaceXApiListener listener)
     {
-        if(!this.listeners.contains(listener)){
-            return;
+        synchronized (listeners) {
+            if (!this.listeners.contains(listener)) {
+                return;
+            }
+            this.listeners.remove(listener);
         }
-        this.listeners.remove(listener);
     }
 
     //Request API rockets data
@@ -102,8 +106,11 @@ public class SpaceXApiManager {
 
                     Launchpad launchpad = createLaunchpad(response);
 
-                    for (SpaceXApiListener listener : listeners) {
-                        listener.onLaunchpadAvailable(launchpad);
+                    synchronized (listeners) {
+                        for(int i = 0; i < listeners.size(); i++) {
+                            SpaceXApiListener listener = listeners.get(i);
+                            listener.onLaunchpadAvailable(launchpad);
+                        }
                     }
                 },
                 error -> {
@@ -156,7 +163,7 @@ public class SpaceXApiManager {
                     Landpad landpad = createLandpad(response);
 
                     for (SpaceXApiListener listener : listeners) {
-                        listener.onLandpadAvailable(landpad);
+                        listener.onLandPadAvailable(landpad);
                     }
 
                 },

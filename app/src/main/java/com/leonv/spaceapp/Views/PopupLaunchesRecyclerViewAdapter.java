@@ -12,7 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.leonv.spaceapp.Models.Flight;
-import com.leonv.spaceapp.utils.OnItemClickListener;
+import com.leonv.spaceapp.Utils.OnItemClickListener;
 import com.leonv.spaceapp.R;
 import com.squareup.picasso.Picasso;
 

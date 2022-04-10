@@ -11,8 +11,8 @@ import com.leonv.spaceapp.API.SpaceXApiListener;
 import com.leonv.spaceapp.API.SpaceXApiManager;
 import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.Rocket;
-import com.leonv.spaceapp.utils.OnItemClickListener;
-import com.leonv.spaceapp.utils.SpaceApp;
+import com.leonv.spaceapp.Utils.OnItemClickListener;
+import com.leonv.spaceapp.SpaceApp;
 
 import java.util.ArrayList;
 import java.util.List;

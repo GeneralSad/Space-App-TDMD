@@ -7,7 +7,7 @@
 
         <variable
             name="popupManager"
-            type="com.leonv.spaceapp.popup.PopupLaunchpad" />
+            type="com.leonv.spaceapp.Popup.PopupLaunchpad" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -9,9 +9,9 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.leonv.spaceapp.API.SpaceXApiListener;
 import com.leonv.spaceapp.API.SpaceXApiManager;
-import com.leonv.spaceapp.utils.GeofenceManager;
+import com.leonv.spaceapp.Utils.GeofenceManager;
 import com.leonv.spaceapp.Models.Launchpad;
-import com.leonv.spaceapp.utils.SpaceApp;
+import com.leonv.spaceapp.SpaceApp;
 
 import java.util.ArrayList;
 import java.util.HashMap;

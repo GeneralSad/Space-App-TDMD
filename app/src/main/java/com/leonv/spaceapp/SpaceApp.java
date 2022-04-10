@@ -1,11 +1,16 @@
-package com.leonv.spaceapp.utils;
+package com.leonv.spaceapp;
 
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+
 import com.leonv.spaceapp.API.SpaceXApiManager;
+import com.leonv.spaceapp.Wokers.LaunchCheckWorker;
 
 public class SpaceApp extends Application {
 
@@ -15,6 +20,7 @@ public class SpaceApp extends Application {
     public void onCreate() {
         super.onCreate();
         this.getNotificationManager();
+        this.enableBackgroundWorker();
     }
 
     public SpaceXApiManager getApiManager(){
@@ -26,6 +32,14 @@ public class SpaceApp extends Application {
             this.notificationManager = this.createNotificationChannel();
         }
         return this.notificationManager;
+    }
+
+    public void enableBackgroundWorker(){
+        PeriodicWorkRequest workRequest = LaunchCheckWorker.buildWorkRequest();
+        WorkManager.getInstance(this)
+                .enqueueUniquePeriodicWork("LaunchCheckWorker",
+                        ExistingPeriodicWorkPolicy.KEEP,
+                        workRequest);
     }
 
     private NotificationManager createNotificationChannel() {

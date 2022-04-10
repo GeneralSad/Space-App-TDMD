@@ -1,4 +1,4 @@
-package com.leonv.spaceapp.utils;
+package com.leonv.spaceapp.Utils;
 
 import android.Manifest;
 import android.app.Application;
@@ -13,7 +13,7 @@ import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
-import com.leonv.spaceapp.utils.GeofenceBroadcastReceiver;
+import com.leonv.spaceapp.Utils.GeofenceBroadcastReceiver;
 
 import org.osmdroid.util.GeoPoint;
 
@@ -52,7 +52,7 @@ public class GeofenceManager {
     }
 
     public GeofencingRequest makeRequest() {
-        return makeRequest(GeofencingRequest.INITIAL_TRIGGER_ENTER);
+        return makeRequest(GeofencingRequest.INITIAL_TRIGGER_EXIT);
     }
 
     public GeofencingRequest makeRequest(@GeofencingRequest.InitialTrigger int initialTrigger) {

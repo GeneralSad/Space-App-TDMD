@@ -79,12 +79,22 @@ public class FlightInfoFragment extends AppCompatActivity {
         if (!missionPatch.isEmpty()) Picasso.get().load(missionPatch).into(imagePatch);
         textName.setText(name);
         textReusedFairings.setText(String.format("Reused fairings: %s", hasReusedFairings ? "Yes" : "No"));
-        textWebcast.setText(Html.fromHtml("<a href=\"" + webcastLink + "\">Webcast</a>"));
-        textWebcast.setMovementMethod(LinkMovementMethod.getInstance());
-        textArticle.setText(Html.fromHtml("<a href=\"" + articleLink + "\">Article</a>"));
-        textArticle.setMovementMethod(LinkMovementMethod.getInstance());
-        textWikipedia.setText(Html.fromHtml("<a href=\"" + wikipediaLink + "\">Wikipedia</a>"));
-        textWikipedia.setMovementMethod(LinkMovementMethod.getInstance());
+
+        if (!webcastLink.isEmpty()) {
+            textWebcast.setText(Html.fromHtml("<a href=\"" + webcastLink + "\">Webcast</a>"));
+            textWebcast.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
+        if (!articleLink.isEmpty()) {
+            textArticle.setText(Html.fromHtml("<a href=\"" + articleLink + "\">Article</a>"));
+            textArticle.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
+        if (!wikipediaLink.isEmpty()) {
+            textWikipedia.setText(Html.fromHtml("<a href=\"" + wikipediaLink + "\">Wikipedia</a>"));
+            textWikipedia.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
         textStaticDate.setText(String.format("Static fire: %s", staticFireDateUtc));
         textDetails.setText(launchDetails);
         textFlightNumber.setText(String.format("Flight number: %d", flightNumber));

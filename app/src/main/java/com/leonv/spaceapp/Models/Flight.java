@@ -140,6 +140,7 @@ public class Flight implements Serializable {
         return this.launchDateUtc;
     }
 
+    //Method for getting the right string back based on the dateprecision of the flight
     public String getLaunchDateString() {
 
         String launchDate;
@@ -173,6 +174,7 @@ public class Flight implements Serializable {
         }
     }
 
+    //Get the time of the launch
     private String getLaunchTime() {
         SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
         hourFormat.setTimeZone(TimeZone.getDefault());

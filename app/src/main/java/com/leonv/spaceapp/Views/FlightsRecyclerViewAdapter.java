@@ -75,6 +75,7 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
             Log.i(LOGTAG, "Clicked on item");
         });
 
+        //Check if there is a mission patch, if there isn't use the default picture
         String missionPatch = flights.get(position).getMissionPatch();
         if (!missionPatch.isEmpty()) {
             Picasso.get().load(flights.get(position).getMissionPatch()).into(holder.missionPatch);

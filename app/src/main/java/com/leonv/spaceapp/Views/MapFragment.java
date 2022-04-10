@@ -83,6 +83,7 @@ public class MapFragment extends Fragment implements MapViewModel.LaunchpadListe
         return binding.getRoot();
     }
 
+    //Set default map values
     private void initMap() {
         MapView mapView = binding.mapview;
 
@@ -96,15 +97,6 @@ public class MapFragment extends Fragment implements MapViewModel.LaunchpadListe
         GeoPoint gPt = new GeoPoint(38.495586, -99.4411535) ;
         mapController.setCenter(gPt);
     }
-
-//    @RequiresApi(api = Build.VERSION_CODES.N)
-//    public void onLaunchpadsAvailable(Collection<Launchpad> launchpads) {
-//        List<GeoPoint> geoPointList = launchpads.stream()
-//                .map((x) -> new GeoPoint(x.getLatitude(), x.getLongitude()))
-//                .collect(Collectors.toList());
-//
-//        MapUtils.AddPoisToMap(binding.mapview, geoPointList);
-//    }
 
     private void askPermissions(Context context) {
         if (ContextCompat.checkSelfPermission(
@@ -146,6 +138,7 @@ public class MapFragment extends Fragment implements MapViewModel.LaunchpadListe
 
         GeofenceManager geofenceManager = new GeofenceManager(this.requireActivity().getApplication());
 
+        //Add marker and geofence to each launchpad
         for (LaunchpadViewHolder launchpadViewHolder : launchpadViewHolders) {
             Marker marker = launchpadViewHolder.create();
             binding.mapview.getOverlays().add(marker);

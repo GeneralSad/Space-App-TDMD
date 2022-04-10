@@ -9,6 +9,7 @@ import com.leonv.spaceapp.Models.Rocket;
 import java.util.ArrayList;
 import java.util.List;
 
+//Listener methods for all the different API calls
 public interface SpaceXApiListener {
     default void onFlightAvailable(Flight flight) {};
     default void onFlightsAvailable(ArrayList<Flight> flights) {};

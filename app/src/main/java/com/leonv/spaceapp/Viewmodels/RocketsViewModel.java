@@ -24,7 +24,6 @@ public class RocketsViewModel extends AndroidViewModel implements SpaceXApiListe
     private SpaceXApiManager spaceXApiManager;
     private final ArrayList<RocketsListener> rocketListeners = new ArrayList<>();
 
-    //TODO: This need to somehow be able to be removed like in UpcomingViewModel, just don't know how
     public RocketsViewModel(Application application) {
         super(application);
         this.spaceXApiManager = ((SpaceApp)application).getApiManager();

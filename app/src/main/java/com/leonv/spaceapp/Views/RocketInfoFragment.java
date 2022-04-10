@@ -112,6 +112,7 @@ public class RocketInfoFragment extends AppCompatActivity {
         }
     }
 
+    //Set the data in the rocket info fragment
     private void setData() {
 
         Picasso.get().load(image).into(imageView);

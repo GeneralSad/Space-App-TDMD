@@ -22,6 +22,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+//More info at: https://github.com/r-spacex/SpaceX-API
+
 public class SpaceXApiManager {
 
     private static final String LOGTAG = SpaceXApiManager.class.getName();
@@ -35,6 +37,7 @@ public class SpaceXApiManager {
         this.queue = Volley.newRequestQueue(context);
     }
 
+    //Singleton method
     public static SpaceXApiManager getInstance(final Context context){
         if(instance == null){
             synchronized (SpaceXApiManager.class){
@@ -58,8 +61,7 @@ public class SpaceXApiManager {
         this.listeners.remove(listener);
     }
 
-    //TODO: Every get...Data method is repeating code, maybe find a way to do this better
-
+    //Request API rockets data
     public void getRocketsData() {
         final String url = "https://api.spacexdata.com/v4/rockets";
 
@@ -90,6 +92,7 @@ public class SpaceXApiManager {
         this.queue.add(request);
     }
 
+    //Request specific API launchpad data
     public void getLaunchPadData(String id) {
         final String url = "https://api.spacexdata.com/v4/launchpads/" + id;
 
@@ -111,6 +114,7 @@ public class SpaceXApiManager {
         this.queue.add(request);
     }
 
+    //Request API launchpads data
     public void getLaunchPadsData() {
         final String url = "https://api.spacexdata.com/v4/launchpads/";
 
@@ -141,6 +145,7 @@ public class SpaceXApiManager {
         this.queue.add(request);
     }
 
+    //Request specific API landpad data
     public void getLandPadData(String id) {
         final String url = "https://api.spacexdata.com/v4/landpads/" + id;
 
@@ -163,6 +168,7 @@ public class SpaceXApiManager {
         this.queue.add(request);
     }
 
+    //Request specific API payload data
     public void getPayloadData(String id) {
 
         final String url = "https://api.spacexdata.com/v4/payloads/" + id;
@@ -186,6 +192,7 @@ public class SpaceXApiManager {
         this.queue.add(request);
     }
 
+    //Request specific API rocket data
     public void getRocketData(String id) {
         final String url = "https://api.spacexdata.com/v4/rockets/" + id;
 
@@ -208,6 +215,7 @@ public class SpaceXApiManager {
         this.queue.add(request);
     }
 
+    //Request specific API flight data
     public void getFlightData(String id) {
         final String url = "https://api.spacexdata.com/v4/launches/" + id;
 
@@ -230,6 +238,7 @@ public class SpaceXApiManager {
         this.queue.add(request);
     }
 
+    //Request API flights data from the given path
     public void getFlightsData(String pathName) {
         final String url = "https://api.spacexdata.com/v4/launches/" + pathName;
 
@@ -259,6 +268,7 @@ public class SpaceXApiManager {
         this.queue.add(request);
     }
 
+    //Create a Launchpad object
     private Launchpad createLaunchpad(JSONObject jsonLaunchpad) {
 
         try {
@@ -306,6 +316,7 @@ public class SpaceXApiManager {
 
     }
 
+    //Create a Landpad object
     private Landpad createLandpad(JSONObject jsonLandpad) {
 
         try {
@@ -336,7 +347,6 @@ public class SpaceXApiManager {
 
             String landpadId = jsonLandpad.getString("id");
 
-
             Log.d(LOGTAG, "Creating landpad");
             Landpad landpad = new Landpad(name, fullName, status, type, locality, region,
                     latitude, longitude, landingAttempts, landingSuccesses, wikipedia,
@@ -350,15 +360,14 @@ public class SpaceXApiManager {
 
     }
 
+    //Create a payload object
     private Payload createPayload(JSONObject jsonPayload) {
 
         try {
 
-            //TODO: Maybe add launchId
             String name = !jsonPayload.isNull("name") ? jsonPayload.getString("name") : "N/A";
             String type = !jsonPayload.isNull("type") ? jsonPayload.getString("type") : "N/A";
 
-            //TODO: Check if this won't crash when json is empty
             JSONArray jsonCustomers = jsonPayload.getJSONArray("customers");
             ArrayList<String> customers = new ArrayList<>();
             for (int i = 0; i < jsonCustomers.length(); i++) {
@@ -395,6 +404,7 @@ public class SpaceXApiManager {
 
     }
 
+    //Create a rocket object
     private Rocket createRocket(JSONObject jsonRocket) {
 
         try {
@@ -463,6 +473,7 @@ public class SpaceXApiManager {
 
     }
 
+    //Create a flight object
     private Flight createFlight(JSONObject jsonObject) {
 
         try {
@@ -475,7 +486,6 @@ public class SpaceXApiManager {
             } else  {
                 hasReusedFairings = false;
             }
-
 
             JSONObject links = jsonObject.getJSONObject("links");
             String webcastLink = !links.isNull("webcast") ? links.getString("webcast") : "";

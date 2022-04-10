@@ -32,7 +32,6 @@ public class MapViewModel extends AndroidViewModel implements SpaceXApiListener 
         super(application);
         spaceXApiManager = ((SpaceApp) application).getApiManager();
         spaceXApiManager.addListener(this);
-//        spaceXApiManager.getLaunchPadsData();
     }
 
     public interface LaunchpadListener{
@@ -71,7 +70,7 @@ public class MapViewModel extends AndroidViewModel implements SpaceXApiListener 
         this.geofenceManager = geofenceManager;
     }
 
-
+    //Make a request to get the launchpads from the API
     public void requestLaunchpads() {
         spaceXApiManager.getLaunchPadsData();
     }

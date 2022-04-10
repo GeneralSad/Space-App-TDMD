@@ -19,22 +19,25 @@
         android:theme="@style/Theme.SpaceApp">
         <activity
             android:name=".Views.RocketInfoFragment"
-            android:label="Rocket Info" />
+            android:label="Rocket Info"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Views.FlightInfoFragment"
-            android:label="Flight Info" />
+            android:label="Flight Info"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.SpaceApp.NoActionBar">
+            android:theme="@style/Theme.SpaceApp.NoActionBar"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".Utils.GeofenceBroadcastReceiver"/>
+        <receiver android:name="GeofenceBroadcastReceiver"/>
     </application>
 
 </manifest>

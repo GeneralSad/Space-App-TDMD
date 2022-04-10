@@ -50,7 +50,6 @@ public class LaunchCheckWorkerTest {
     @Before
     public void setUp() {
         context = ApplicationProvider.getApplicationContext();
-//        context = InstrumentationRegistry.getTargetContext();
         Configuration config = new Configuration.Builder()
                 .setMinimumLoggingLevel(Log.DEBUG)
                 .setExecutor(new SynchronousExecutor())
@@ -66,20 +65,14 @@ public class LaunchCheckWorkerTest {
         FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
         fusedLocationProviderClient.setMockMode(true);
         String TEST_MOCK_GPS_LOCATION = "TEST_MOCK_GPS_LOCATION";
-//        LocationManager locationManager = (LocationManager) this.context.getSystemService(Context.LOCATION_SERVICE);
-//        locationManager.addTestProvider(TEST_MOCK_GPS_LOCATION, false, false, false, false, false, false, false, Criteria.POWER_LOW, Criteria.ACCURACY_FINE);
-//        locationManager.setTestProviderEnabled(TEST_MOCK_GPS_LOCATION, true);
-
 
         // Set up your test
-
         Location location = new Location(TEST_MOCK_GPS_LOCATION);
         location.setLatitude(34.1233400);
         location.setLongitude(15.6777880);
         location.setAccuracy(7);
         location.setTime(8);
         location.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
-//        locationManager.setTestProviderLocation(TEST_MOCK_GPS_LOCATION, location);
         fusedLocationProviderClient.setMockLocation(location);
 
         LocationRequest mLocationRequest = LocationRequest.create();
@@ -104,22 +97,5 @@ public class LaunchCheckWorkerTest {
         Data outputData = workInfo.getOutputData();
         assertThat(workInfo.getState(), is(WorkInfo.State.SUCCEEDED));
         Thread.sleep(20000);
-//        locationManager.removeTestProvider("Test");
-//        fusedLocationProviderClient.setMockMode(false);
-
-
-//        PeriodicWorkRequest workRequest = LaunchCheckWorker.buildWorkRequest();
-//        WorkManager workManager = WorkManager.getInstance(context);
-//        TestDriver testDriver = WorkManagerTestInitHelper.getTestDriver();
-//        workManager.enqueueUniquePeriodicWork("LaunchCheckWorker",
-//                        ExistingPeriodicWorkPolicy.KEEP,
-//                        workRequest);
-//        assert testDriver != null;
-//        testDriver.setAllConstraintsMet(workRequest.getId());
-//        testDriver.setPeriodDelayMet(workRequest.getId());
-//        WorkInfo workInfo = workManager.getWorkInfoById(workRequest.getId()).get();
-//
-//        // Assert
-//        assertThat(workInfo.getState(), is(WorkInfo.State.ENQUEUED));
     }
 }

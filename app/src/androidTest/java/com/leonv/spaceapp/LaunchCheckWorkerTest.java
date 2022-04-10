@@ -5,28 +5,20 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.work.Configuration;
 import androidx.work.Data;
-import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
-import androidx.work.impl.WorkManagerImpl;
 import androidx.work.testing.SynchronousExecutor;
-import androidx.work.testing.TestDriver;
-import androidx.work.testing.TestListenableWorkerBuilder;
 import androidx.work.testing.WorkManagerTestInitHelper;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -39,9 +31,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Date;
-import com.google.android.gms.location.LocationListener;
-import com.leonv.spaceapp.Wokers.LaunchCheckWorker;
+import com.leonv.spaceapp.Workers.LaunchCheckWorker;
 
 @RunWith(AndroidJUnit4.class)
 public class LaunchCheckWorkerTest {

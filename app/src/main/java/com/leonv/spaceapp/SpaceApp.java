@@ -10,7 +10,7 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import com.leonv.spaceapp.API.SpaceXApiManager;
-import com.leonv.spaceapp.Wokers.LaunchCheckWorker;
+import com.leonv.spaceapp.Workers.LaunchCheckWorker;
 
 public class SpaceApp extends Application {
 

@@ -1,4 +1,4 @@
-package com.leonv.spaceapp.Wokers;
+package com.leonv.spaceapp.Workers;
 
 import android.app.PendingIntent;
 import android.content.Context;

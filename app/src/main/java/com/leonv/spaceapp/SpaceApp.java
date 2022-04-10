@@ -5,6 +5,8 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
+import androidx.work.WorkManager;
+
 import com.leonv.spaceapp.API.SpaceXApiManager;
 
 public class SpaceApp extends Application {
@@ -15,6 +17,7 @@ public class SpaceApp extends Application {
     public void onCreate() {
         super.onCreate();
         this.getNotificationManager();
+        this.enableBackgroundWorker();
     }
 
     public SpaceXApiManager getApiManager(){
@@ -26,6 +29,12 @@ public class SpaceApp extends Application {
             this.notificationManager = this.createNotificationChannel();
         }
         return this.notificationManager;
+    }
+
+    public void enableBackgroundWorker(){
+        WorkManager
+                .getInstance(this)
+                .enqueue(LaunchCheckWorker.buildWorkRequest());
     }
 
     private NotificationManager createNotificationChannel() {

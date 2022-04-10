@@ -86,11 +86,13 @@ public class MapFragment extends Fragment implements MapViewModel.LaunchpadListe
         MapView mapView = binding.mapview;
 
         MapController mapController = (MapController) mapView.getController();
-        mapController.setZoom(10);
+        mapController.setZoom(5);
         mapView.setMaxZoomLevel(20.0);
-        mapView.setMinZoomLevel(1.0);
+        mapView.setMinZoomLevel(3.0);
+        mapView.setVerticalMapRepetitionEnabled(false);
+        mapView.setScrollableAreaLimitLatitude(80.0, -80.0, 10);
         mapView.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.ALWAYS);
-        GeoPoint gPt = new GeoPoint(51.588905, 4.776070);
+        GeoPoint gPt = new GeoPoint(38.495586, -99.4411535) ;
         mapController.setCenter(gPt);
     }
 

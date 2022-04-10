@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.R;
@@ -35,6 +36,8 @@ public class UpcomingFragment extends Fragment implements UpcomingViewModel.Flig
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        upcomingViewModel.requestFlights();
 
         View view = inflater.inflate(R.layout.upcoming_fragment, container, false);
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.leonv.spaceapp.Models.Rocket;
 import com.leonv.spaceapp.R;
@@ -40,7 +41,7 @@ public class RocketsFragment extends Fragment implements RocketsViewModel.Rocket
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.upcoming_fragment, container, false);
+        View view = inflater.inflate(R.layout.rockets_fragment, container, false);
 
         if (view instanceof RecyclerView) {
             RecyclerView recyclerView = (RecyclerView) view;

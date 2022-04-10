@@ -3,8 +3,6 @@ package com.leonv.spaceapp.Models;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
@@ -158,14 +156,18 @@ public class Flight implements Serializable {
             SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM yyyy");
             monthFormat.setTimeZone(TimeZone.getDefault());
             launchDate = monthFormat.format(launchDateUtc);
-        } else {
+        } else if (datePrecision.equals("day")) {
             SimpleDateFormat dayFormat = new SimpleDateFormat("d MMMM yyyy");
             dayFormat.setTimeZone(TimeZone.getDefault());
-            launchDate = dayFormat.format(launchDateUtc) + " " + getLaunchTime();
+            launchDate = dayFormat.format(launchDateUtc);
+        } else {
+            SimpleDateFormat hourFormat = new SimpleDateFormat("d MMMM yyyy");
+            hourFormat.setTimeZone(TimeZone.getDefault());
+            launchDate = hourFormat.format(launchDateUtc) + " " + getLaunchTime();
         }
 
         if (isNET) {
-            return "NET" + launchDate;
+            return "NET " + launchDate;
         } else {
             return launchDate;
         }

@@ -1,13 +1,9 @@
-package com.leonv.spaceapp;
+package com.leonv.spaceapp.Viewmodels;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.leonv.spaceapp.API.SpaceXApiManager;
-import com.leonv.spaceapp.Viewmodels.MapViewModel;
-import com.leonv.spaceapp.Viewmodels.RocketsViewModel;
-import com.leonv.spaceapp.Viewmodels.UpcomingViewModel;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
 

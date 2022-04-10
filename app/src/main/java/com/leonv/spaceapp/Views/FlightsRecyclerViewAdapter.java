@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.Rocket;
-import com.leonv.spaceapp.OnItemClickListener;
+import com.leonv.spaceapp.utils.OnItemClickListener;
 import com.leonv.spaceapp.R;
 import com.squareup.picasso.Picasso;
 

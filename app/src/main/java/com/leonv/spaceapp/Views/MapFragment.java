@@ -19,8 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.leonv.spaceapp.GeofenceManager;
-import com.leonv.spaceapp.LaunchpadViewHolder;
+import com.leonv.spaceapp.utils.GeofenceManager;
+import com.leonv.spaceapp.utils.LaunchpadViewHolder;
 import com.leonv.spaceapp.Models.Launchpad;
 import com.leonv.spaceapp.Viewmodels.MapViewModel;
 import com.leonv.spaceapp.Viewmodels.UpcomingViewModel;

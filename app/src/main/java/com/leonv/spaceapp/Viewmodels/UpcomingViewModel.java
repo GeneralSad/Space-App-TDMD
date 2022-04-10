@@ -6,15 +6,13 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.leonv.spaceapp.API.SpaceXApiListener;
 import com.leonv.spaceapp.API.SpaceXApiManager;
 import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.Rocket;
-import com.leonv.spaceapp.OnItemClickListener;
-import com.leonv.spaceapp.SpaceApp;
+import com.leonv.spaceapp.utils.OnItemClickListener;
+import com.leonv.spaceapp.utils.SpaceApp;
 
 import java.util.ArrayList;
 import java.util.List;

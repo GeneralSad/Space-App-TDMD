@@ -1,17 +1,10 @@
 package com.leonv.spaceapp.API;
 
-import android.app.Application;
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -22,16 +15,11 @@ import com.leonv.spaceapp.Models.Payload;
 import com.leonv.spaceapp.Models.PayloadWeight;
 import com.leonv.spaceapp.Models.Rocket;
 import com.leonv.spaceapp.Models.RocketFlightCore;
-import com.leonv.spaceapp.OnItemClickListener;
-import com.leonv.spaceapp.Viewmodels.MapViewModel;
-import com.leonv.spaceapp.Viewmodels.RocketsViewModel;
-import com.leonv.spaceapp.Viewmodels.UpcomingViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SpaceXApiManager {

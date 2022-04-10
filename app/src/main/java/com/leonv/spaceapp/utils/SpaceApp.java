@@ -1,4 +1,4 @@
-package com.leonv.spaceapp;
+package com.leonv.spaceapp.utils;
 
 import android.app.Application;
 import android.app.NotificationChannel;

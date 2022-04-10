@@ -1,4 +1,4 @@
-package com.leonv.spaceapp.Popup;
+package com.leonv.spaceapp.popup;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;

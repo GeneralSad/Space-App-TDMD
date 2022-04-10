@@ -245,6 +245,94 @@ public class SpaceXApiManager {
         final JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
                     Log.d(LOGTAG, "Volley response: " + response.toString());
+
+//                    String demoJson = " {\n" +
+//                            "        \"fairings\": {\n" +
+//                            "            \"reused\": true,\n" +
+//                            "            \"recovery_attempt\": false,\n" +
+//                            "            \"recovered\": false,\n" +
+//                            "            \"ships\": []\n" +
+//                            "        },\n" +
+//                            "        \"links\": {\n" +
+//                            "            \"patch\": {\n" +
+//                            "                \"small\": \"https://i.imgur.com/v3ZAOvK.png\",\n" +
+//                            "                \"large\": null\n" +
+//                            "            },\n" +
+//                            "            \"reddit\": {\n" +
+//                            "                \"campaign\": null,\n" +
+//                            "                \"launch\": null,\n" +
+//                            "                \"media\": null,\n" +
+//                            "                \"recovery\": null\n" +
+//                            "            },\n" +
+//                            "            \"flickr\": {\n" +
+//                            "                \"small\": [],\n" +
+//                            "                \"original\": []\n" +
+//                            "            },\n" +
+//                            "            \"presskit\": null,\n" +
+//                            "            \"webcast\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\",\n" +
+//                            "            \"youtube_id\": null,\n" +
+//                            "            \"article\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\",\n" +
+//                            "            \"wikipedia\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n" +
+//                            "        },\n" +
+//                            "        \"static_fire_date_utc\": \"2022-04-13T10:10:00.000Z\",\n" +
+//                            "        \"static_fire_date_unix\": null,\n" +
+//                            "        \"net\": false,\n" +
+//                            "        \"window\": null,\n" +
+//                            "        \"rocket\": \"5e9d0d95eda69973a809d1ec\",\n" +
+//                            "        \"success\": null,\n" +
+//                            "        \"failures\": [],\n" +
+//                            "        \"details\": null,\n" +
+//                            "        \"crew\": [],\n" +
+//                            "        \"ships\": [],\n" +
+//                            "        \"capsules\": [],\n" +
+//                            "        \"payloads\": [\n" +
+//                            "            \"6243b036af52800c6e919262\"\n" +
+//                            "        ],\n" +
+//                            "        \"launchpad\": \"5e9e4502f509092b78566f87\",\n" +
+//                            "        \"flight_number\": 157,\n" +
+//                            "        \"name\": \"NROL-85\",\n" +
+//                            "        \"date_utc\": \"2022-04-13T12:59:00.000Z\",\n" +
+//                            "        \"date_unix\": 1650027540,\n" +
+//                            "        \"date_local\": \"2022-04-13T05:59:00-07:00\",\n" +
+//                            "        \"date_precision\": \"hour\",\n" +
+//                            "        \"upcoming\": true,\n" +
+//                            "        \"cores\": [\n" +
+//                            "            {\n" +
+//                            "                \"core\": \"61fae5947aa67176fe3e0e1e\",\n" +
+//                            "                \"flight\": 2,\n" +
+//                            "                \"gridfins\": true,\n" +
+//                            "                \"legs\": true,\n" +
+//                            "                \"reused\": true,\n" +
+//                            "                \"landing_attempt\": true,\n" +
+//                            "                \"landing_success\": null,\n" +
+//                            "                \"landing_type\": null,\n" +
+//                            "                \"landpad\": null\n" +
+//                            "            }\n" +
+//                            "        ],\n" +
+//                            "        \"auto_update\": true,\n" +
+//                            "        \"tbd\": false,\n" +
+//                            "        \"launch_library_id\": \"42932355-c450-4250-a885-2d2709fd7cfc\",\n" +
+//                            "        \"id\": \"6243adcaaf52800c6e919254\"\n" +
+//                            "    }";
+//
+//                    try {
+//
+//                        JSONObject demoJsonObject = new JSONObject(demoJson);
+//                        ArrayList<Flight> flights = new ArrayList<>();
+//                        flights.add(createFlight(demoJsonObject));
+//
+//                        for (SpaceXApiListener listener : listeners) {
+//                            listener.onFlightsAvailable(flights);
+//                        }
+//
+//                    } catch (JSONException exception) {
+//                        exception.printStackTrace();
+//                    }
+
+                    /**
+                     * Comment the lines underneath out for normal functioning app.
+                     * Comment above lines out for demo purposes
+                     */
                     try {
                         ArrayList<Flight> flights = new ArrayList<>(response.length());
                         for (int i = 0; i < response.length(); i++) {
@@ -259,6 +347,9 @@ public class SpaceXApiManager {
                     } catch (JSONException exception) {
                         Log.e(LOGTAG, "Error while parsing JSON data: " + exception.getLocalizedMessage());
                     }
+                    /**
+                     *
+                     */
                 },
                 error -> {
                     Log.e(LOGTAG, error.getLocalizedMessage());

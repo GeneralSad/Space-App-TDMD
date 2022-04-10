@@ -1,17 +1,10 @@
 package com.leonv.spaceapp.API;
 
-import android.app.Application;
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -22,17 +15,14 @@ import com.leonv.spaceapp.Models.Payload;
 import com.leonv.spaceapp.Models.PayloadWeight;
 import com.leonv.spaceapp.Models.Rocket;
 import com.leonv.spaceapp.Models.RocketFlightCore;
-import com.leonv.spaceapp.OnItemClickListener;
-import com.leonv.spaceapp.Viewmodels.MapViewModel;
-import com.leonv.spaceapp.Viewmodels.RocketsViewModel;
-import com.leonv.spaceapp.Viewmodels.UpcomingViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+//More info at: https://github.com/r-spacex/SpaceX-API
 
 public class SpaceXApiManager {
 
@@ -47,6 +37,7 @@ public class SpaceXApiManager {
         this.queue = Volley.newRequestQueue(context);
     }
 
+    //Singleton method
     public static SpaceXApiManager getInstance(final Context context){
         if(instance == null){
             synchronized (SpaceXApiManager.class){
@@ -70,8 +61,7 @@ public class SpaceXApiManager {
         this.listeners.remove(listener);
     }
 
-    //TODO: Every get...Data method is repeating code, maybe find a way to do this better
-
+    //Request API rockets data
     public void getRocketsData() {
         final String url = "https://api.spacexdata.com/v4/rockets";
 
@@ -102,6 +92,7 @@ public class SpaceXApiManager {
         this.queue.add(request);
     }
 
+    //Request specific API launchpad data
     public void getLaunchPadData(String id) {
         final String url = "https://api.spacexdata.com/v4/launchpads/" + id;
 
@@ -123,6 +114,7 @@ public class SpaceXApiManager {
         this.queue.add(request);
     }
 
+    //Request API launchpads data
     public void getLaunchPadsData() {
         final String url = "https://api.spacexdata.com/v4/launchpads/";
 
@@ -153,6 +145,7 @@ public class SpaceXApiManager {
         this.queue.add(request);
     }
 
+    //Request specific API landpad data
     public void getLandPadData(String id) {
         final String url = "https://api.spacexdata.com/v4/landpads/" + id;
 
@@ -175,6 +168,7 @@ public class SpaceXApiManager {
         this.queue.add(request);
     }
 
+    //Request specific API payload data
     public void getPayloadData(String id) {
 
         final String url = "https://api.spacexdata.com/v4/payloads/" + id;
@@ -198,6 +192,7 @@ public class SpaceXApiManager {
         this.queue.add(request);
     }
 
+    //Request specific API rocket data
     public void getRocketData(String id) {
         final String url = "https://api.spacexdata.com/v4/rockets/" + id;
 
@@ -220,6 +215,7 @@ public class SpaceXApiManager {
         this.queue.add(request);
     }
 
+    //Request specific API flight data
     public void getFlightData(String id) {
         final String url = "https://api.spacexdata.com/v4/launches/" + id;
 
@@ -242,12 +238,101 @@ public class SpaceXApiManager {
         this.queue.add(request);
     }
 
+    //Request API flights data from the given path
     public void getFlightsData(String pathName) {
         final String url = "https://api.spacexdata.com/v4/launches/" + pathName;
 
         final JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
                     Log.d(LOGTAG, "Volley response: " + response.toString());
+
+//                    String demoJson = " {\n" +
+//                            "        \"fairings\": {\n" +
+//                            "            \"reused\": true,\n" +
+//                            "            \"recovery_attempt\": false,\n" +
+//                            "            \"recovered\": false,\n" +
+//                            "            \"ships\": []\n" +
+//                            "        },\n" +
+//                            "        \"links\": {\n" +
+//                            "            \"patch\": {\n" +
+//                            "                \"small\": \"https://i.imgur.com/v3ZAOvK.png\",\n" +
+//                            "                \"large\": null\n" +
+//                            "            },\n" +
+//                            "            \"reddit\": {\n" +
+//                            "                \"campaign\": null,\n" +
+//                            "                \"launch\": null,\n" +
+//                            "                \"media\": null,\n" +
+//                            "                \"recovery\": null\n" +
+//                            "            },\n" +
+//                            "            \"flickr\": {\n" +
+//                            "                \"small\": [],\n" +
+//                            "                \"original\": []\n" +
+//                            "            },\n" +
+//                            "            \"presskit\": null,\n" +
+//                            "            \"webcast\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\",\n" +
+//                            "            \"youtube_id\": null,\n" +
+//                            "            \"article\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\",\n" +
+//                            "            \"wikipedia\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\n" +
+//                            "        },\n" +
+//                            "        \"static_fire_date_utc\": \"2022-04-13T10:10:00.000Z\",\n" +
+//                            "        \"static_fire_date_unix\": null,\n" +
+//                            "        \"net\": false,\n" +
+//                            "        \"window\": null,\n" +
+//                            "        \"rocket\": \"5e9d0d95eda69973a809d1ec\",\n" +
+//                            "        \"success\": null,\n" +
+//                            "        \"failures\": [],\n" +
+//                            "        \"details\": null,\n" +
+//                            "        \"crew\": [],\n" +
+//                            "        \"ships\": [],\n" +
+//                            "        \"capsules\": [],\n" +
+//                            "        \"payloads\": [\n" +
+//                            "            \"6243b036af52800c6e919262\"\n" +
+//                            "        ],\n" +
+//                            "        \"launchpad\": \"5e9e4502f509092b78566f87\",\n" +
+//                            "        \"flight_number\": 157,\n" +
+//                            "        \"name\": \"NROL-85\",\n" +
+//                            "        \"date_utc\": \"2022-04-13T12:59:00.000Z\",\n" +
+//                            "        \"date_unix\": 1650027540,\n" +
+//                            "        \"date_local\": \"2022-04-13T05:59:00-07:00\",\n" +
+//                            "        \"date_precision\": \"hour\",\n" +
+//                            "        \"upcoming\": true,\n" +
+//                            "        \"cores\": [\n" +
+//                            "            {\n" +
+//                            "                \"core\": \"61fae5947aa67176fe3e0e1e\",\n" +
+//                            "                \"flight\": 2,\n" +
+//                            "                \"gridfins\": true,\n" +
+//                            "                \"legs\": true,\n" +
+//                            "                \"reused\": true,\n" +
+//                            "                \"landing_attempt\": true,\n" +
+//                            "                \"landing_success\": null,\n" +
+//                            "                \"landing_type\": null,\n" +
+//                            "                \"landpad\": null\n" +
+//                            "            }\n" +
+//                            "        ],\n" +
+//                            "        \"auto_update\": true,\n" +
+//                            "        \"tbd\": false,\n" +
+//                            "        \"launch_library_id\": \"42932355-c450-4250-a885-2d2709fd7cfc\",\n" +
+//                            "        \"id\": \"6243adcaaf52800c6e919254\"\n" +
+//                            "    }";
+//
+//                    try {
+//
+//                        JSONObject demoJsonObject = new JSONObject(demoJson);
+//                        ArrayList<Flight> flights = new ArrayList<>();
+//                        flights.add(createFlight(demoJsonObject));
+//
+//                        for (SpaceXApiListener listener : listeners) {
+//                            listener.onFlightsAvailable(flights);
+//                        }
+//
+//                    } catch (JSONException exception) {
+//                        exception.printStackTrace();
+//                    }
+
+                    /**
+                     * Comment the lines underneath out for normal functioning app.
+                     * Comment above lines out for demo purposes
+                     */
                     try {
                         ArrayList<Flight> flights = new ArrayList<>(response.length());
                         for (int i = 0; i < response.length(); i++) {
@@ -262,6 +347,9 @@ public class SpaceXApiManager {
                     } catch (JSONException exception) {
                         Log.e(LOGTAG, "Error while parsing JSON data: " + exception.getLocalizedMessage());
                     }
+                    /**
+                     *
+                     */
                 },
                 error -> {
                     Log.e(LOGTAG, error.getLocalizedMessage());
@@ -271,6 +359,7 @@ public class SpaceXApiManager {
         this.queue.add(request);
     }
 
+    //Create a Launchpad object
     private Launchpad createLaunchpad(JSONObject jsonLaunchpad) {
 
         try {
@@ -318,6 +407,7 @@ public class SpaceXApiManager {
 
     }
 
+    //Create a Landpad object
     private Landpad createLandpad(JSONObject jsonLandpad) {
 
         try {
@@ -348,7 +438,6 @@ public class SpaceXApiManager {
 
             String landpadId = jsonLandpad.getString("id");
 
-
             Log.d(LOGTAG, "Creating landpad");
             Landpad landpad = new Landpad(name, fullName, status, type, locality, region,
                     latitude, longitude, landingAttempts, landingSuccesses, wikipedia,
@@ -362,15 +451,14 @@ public class SpaceXApiManager {
 
     }
 
+    //Create a payload object
     private Payload createPayload(JSONObject jsonPayload) {
 
         try {
 
-            //TODO: Maybe add launchId
             String name = !jsonPayload.isNull("name") ? jsonPayload.getString("name") : "N/A";
             String type = !jsonPayload.isNull("type") ? jsonPayload.getString("type") : "N/A";
 
-            //TODO: Check if this won't crash when json is empty
             JSONArray jsonCustomers = jsonPayload.getJSONArray("customers");
             ArrayList<String> customers = new ArrayList<>();
             for (int i = 0; i < jsonCustomers.length(); i++) {
@@ -407,6 +495,7 @@ public class SpaceXApiManager {
 
     }
 
+    //Create a rocket object
     private Rocket createRocket(JSONObject jsonRocket) {
 
         try {
@@ -475,6 +564,7 @@ public class SpaceXApiManager {
 
     }
 
+    //Create a flight object
     private Flight createFlight(JSONObject jsonObject) {
 
         try {
@@ -487,7 +577,6 @@ public class SpaceXApiManager {
             } else  {
                 hasReusedFairings = false;
             }
-
 
             JSONObject links = jsonObject.getJSONObject("links");
             String webcastLink = !links.isNull("webcast") ? links.getString("webcast") : "";

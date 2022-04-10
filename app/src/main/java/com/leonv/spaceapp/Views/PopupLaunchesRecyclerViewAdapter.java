@@ -1,4 +1,4 @@
-package com.leonv.spaceapp;
+package com.leonv.spaceapp.Views;
 
 import android.content.Intent;
 import android.util.Log;
@@ -12,7 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.leonv.spaceapp.Models.Flight;
-import com.leonv.spaceapp.Views.FlightInfoFragment;
+import com.leonv.spaceapp.utils.OnItemClickListener;
+import com.leonv.spaceapp.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

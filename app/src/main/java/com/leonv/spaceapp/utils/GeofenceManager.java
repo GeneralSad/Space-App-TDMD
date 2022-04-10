@@ -1,4 +1,4 @@
-package com.leonv.spaceapp;
+package com.leonv.spaceapp.utils;
 
 import android.Manifest;
 import android.app.Application;
@@ -13,6 +13,7 @@ import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
+import com.leonv.spaceapp.utils.GeofenceBroadcastReceiver;
 
 import org.osmdroid.util.GeoPoint;
 

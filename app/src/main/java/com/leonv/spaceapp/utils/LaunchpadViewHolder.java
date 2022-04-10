@@ -1,4 +1,4 @@
-package com.leonv.spaceapp;
+package com.leonv.spaceapp.utils;
 
 import androidx.fragment.app.Fragment;
 

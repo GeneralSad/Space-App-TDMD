@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.Rocket;
-import com.leonv.spaceapp.OnItemClickListener;
+import com.leonv.spaceapp.utils.OnItemClickListener;
 import com.leonv.spaceapp.R;
 import com.squareup.picasso.Picasso;
 
@@ -75,6 +75,7 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
             Log.i(LOGTAG, "Clicked on item");
         });
 
+        //Check if there is a mission patch, if there isn't use the default picture
         String missionPatch = flights.get(position).getMissionPatch();
         if (!missionPatch.isEmpty()) {
             Picasso.get().load(flights.get(position).getMissionPatch()).into(holder.missionPatch);

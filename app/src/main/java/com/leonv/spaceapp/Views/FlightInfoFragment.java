@@ -74,6 +74,7 @@ public class FlightInfoFragment extends AppCompatActivity {
         }
     }
 
+    //Set the data in the info fragment
     private void setData() {
 
         if (!missionPatch.isEmpty()) Picasso.get().load(missionPatch).into(imagePatch);

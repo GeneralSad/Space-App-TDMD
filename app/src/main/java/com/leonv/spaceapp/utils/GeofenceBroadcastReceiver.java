@@ -1,6 +1,5 @@
-package com.leonv.spaceapp;
+package com.leonv.spaceapp.utils;
 
-import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,14 +14,12 @@ import com.google.android.gms.location.GeofenceStatusCodes;
 import com.google.android.gms.location.GeofencingEvent;
 import com.leonv.spaceapp.API.SpaceXApiListener;
 import com.leonv.spaceapp.API.SpaceXApiManager;
-import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.Launchpad;
+import com.leonv.spaceapp.R;
 
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 

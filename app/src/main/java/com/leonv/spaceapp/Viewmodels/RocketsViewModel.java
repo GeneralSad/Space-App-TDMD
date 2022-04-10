@@ -9,8 +9,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.leonv.spaceapp.API.SpaceXApiListener;
 import com.leonv.spaceapp.API.SpaceXApiManager;
 import com.leonv.spaceapp.Models.Rocket;
-import com.leonv.spaceapp.OnItemClickListener;
-import com.leonv.spaceapp.SpaceApp;
+import com.leonv.spaceapp.utils.OnItemClickListener;
+import com.leonv.spaceapp.utils.SpaceApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,6 @@ public class RocketsViewModel extends AndroidViewModel implements SpaceXApiListe
     private SpaceXApiManager spaceXApiManager;
     private final ArrayList<RocketsListener> rocketListeners = new ArrayList<>();
 
-    //TODO: This need to somehow be able to be removed like in UpcomingViewModel, just don't know how
     public RocketsViewModel(Application application) {
         super(application);
         this.spaceXApiManager = ((SpaceApp)application).getApiManager();

@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import com.leonv.spaceapp.GeofenceManager;
 import com.leonv.spaceapp.LaunchpadViewHolder;
 import com.leonv.spaceapp.Models.Launchpad;
+import com.leonv.spaceapp.SpaceApp;
 import com.leonv.spaceapp.Viewmodels.MapViewModel;
 import com.leonv.spaceapp.Viewmodels.UpcomingViewModel;
 import com.leonv.spaceapp.databinding.FragmentMapBinding;
@@ -141,7 +142,7 @@ public class MapFragment extends Fragment implements MapViewModel.LaunchpadListe
                 .map((x) -> new LaunchpadViewHolder(this, binding.mapview, x, this.upcomingViewModel))
                 .collect(Collectors.toList());
 
-        GeofenceManager geofenceManager = new GeofenceManager(this.requireActivity().getApplication());
+        GeofenceManager geofenceManager = new GeofenceManager((SpaceApp)this.requireContext().getApplicationContext());
 
         for (LaunchpadViewHolder launchpadViewHolder : launchpadViewHolders) {
             Marker marker = launchpadViewHolder.create();

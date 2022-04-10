@@ -1,17 +1,10 @@
 package com.leonv.spaceapp.API;
 
-import android.app.Application;
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -22,16 +15,11 @@ import com.leonv.spaceapp.Models.Payload;
 import com.leonv.spaceapp.Models.PayloadWeight;
 import com.leonv.spaceapp.Models.Rocket;
 import com.leonv.spaceapp.Models.RocketFlightCore;
-import com.leonv.spaceapp.OnItemClickListener;
-import com.leonv.spaceapp.Viewmodels.MapViewModel;
-import com.leonv.spaceapp.Viewmodels.RocketsViewModel;
-import com.leonv.spaceapp.Viewmodels.UpcomingViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SpaceXApiManager {
@@ -41,7 +29,7 @@ public class SpaceXApiManager {
     private static SpaceXApiManager instance;
 
     private RequestQueue queue;
-    private ArrayList<SpaceXApiListener> listeners = new ArrayList<>();
+    private final ArrayList<SpaceXApiListener> listeners = new ArrayList<>();
 
     public SpaceXApiManager(Context context) {
         this.queue = Volley.newRequestQueue(context);
@@ -59,15 +47,19 @@ public class SpaceXApiManager {
     }
 
     public void addListener(SpaceXApiListener listener) {
-        listeners.add(listener);
+        synchronized (listeners) {
+            listeners.add(listener);
+        }
     }
 
     public void removeListener(SpaceXApiListener listener)
     {
-        if(!this.listeners.contains(listener)){
-            return;
+        synchronized (listeners) {
+            if (!this.listeners.contains(listener)) {
+                return;
+            }
+            this.listeners.remove(listener);
         }
-        this.listeners.remove(listener);
     }
 
     //TODO: Every get...Data method is repeating code, maybe find a way to do this better
@@ -111,8 +103,11 @@ public class SpaceXApiManager {
 
                     Launchpad launchpad = createLaunchpad(response);
 
-                    for (SpaceXApiListener listener : listeners) {
-                        listener.onLaunchpadAvailable(launchpad);
+                    synchronized (listeners) {
+                        for(int i = 0; i < listeners.size(); i++) {
+                            SpaceXApiListener listener = listeners.get(i);
+                            listener.onLaunchpadAvailable(launchpad);
+                        }
                     }
                 },
                 error -> {
@@ -163,7 +158,7 @@ public class SpaceXApiManager {
                     Landpad landpad = createLandpad(response);
 
                     for (SpaceXApiListener listener : listeners) {
-                        listener.onLandpadAvailable(landpad);
+                        listener.onLandPadAvailable(landpad);
                     }
 
                 },
@@ -255,7 +250,7 @@ public class SpaceXApiManager {
                             Flight flight = createFlight(jsonFlight);
                             flights.add(flight);
                             for (SpaceXApiListener listener : listeners) {
-                                listener.onFlightsAvailable(flights);
+                                listener.onFlightAvailable(flight);
                             }
                             flights.add(flight);
                         }

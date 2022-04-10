@@ -1,47 +1,69 @@
 package com.leonv.spaceapp;
 
+import android.Manifest;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Constraints;
-import androidx.work.Data;
 import androidx.work.NetworkType;
-import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkRequest;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Tasks;
+import com.leonv.spaceapp.API.SpaceXApiListener;
+import com.leonv.spaceapp.API.SpaceXApiManager;
+import com.leonv.spaceapp.Models.Flight;
+import com.leonv.spaceapp.Models.Launchpad;
+import com.leonv.spaceapp.Views.FlightInfoFragment;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LaunchCheckWorker extends Worker {
+    private final int ALERT_DISTANCE = 1000 * 50;
 
-    private FusedLocationProviderClient fusedLocationClient;
+    private Context context;
 
     public LaunchCheckWorker(@NonNull Context context,
                              @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+        this.context = context;
     }
 
     @NonNull
     @Override
-    public Result doWork() {
-        Date currentTime = Calendar.getInstance().getTime();
-        int id = (int)Math.round(currentTime.getTime() / 1000.0);
-        String title = "LaunchCheckWorker";
-        String description = String.format("Launchpad %s is near", "LaunchCheckWorker");
-        NotificationCompat.Builder builder = buildNotification(this.getApplicationContext(), title , description);
-        showNotification(this.getApplicationContext(), id, builder);
+    public Result doWork(){
+        FlightChecker.getUpcomingFlights(context,
+                ALERT_DISTANCE,
+                60 * 60 * 24,
+                flights -> flights.forEach(
+                        flight -> flightNotification(this.getApplicationContext(), flight)
+                ),
+                e -> Log.e("LaunchCheckWorker", e.getLocalizedMessage()));
 
-        return Result.success();
+        return Result.success(getInputData());
     }
 
     public static PeriodicWorkRequest buildWorkRequest(){
@@ -50,13 +72,33 @@ public class LaunchCheckWorker extends Worker {
                 .build();
 
         return new PeriodicWorkRequest.Builder(LaunchCheckWorker.class,
-                1,
+                15,
                 TimeUnit.MINUTES)
                 .setConstraints(constraints)
                 .build();
     }
 
-    private NotificationCompat.Builder buildNotification(Context context, String title, String message){
+    private void flightNotification(Context context, Flight flight)
+    {
+        Date currentTime = Calendar.getInstance().getTime();
+        int id = (int)Math.round(currentTime.getTime() / 1000.0);
+        String title = "There will be a launch soon";
+        String description = String.format("Flight %s will launch at %s", flight.getFlightId(), flight.getLaunchDateString());
+        PendingIntent pendingIntent = buildNotificationIntent(context, flight);
+        NotificationCompat.Builder notificationBuilder = buildNotification(context,
+                pendingIntent,
+                title,
+                description);
+        showNotification(context, id, notificationBuilder);
+    }
+
+    private void showNotification(Context context, int id, NotificationCompat.Builder notificationBuilder){
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        // notificationId is a unique int for each notification that you must define
+        notificationManager.notify(id, notificationBuilder.build());
+    }
+
+    private NotificationCompat.Builder buildNotification(Context context, PendingIntent intent, String title, String message){
         return new NotificationCompat.Builder(context, "spaceapp")
                 .setSmallIcon(R.drawable.rocket)
                 .setContentTitle(title)
@@ -64,13 +106,27 @@ public class LaunchCheckWorker extends Worker {
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(message))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(intent)
                 .setAutoCancel(true);
     }
 
-    private void showNotification(Context context, int id, NotificationCompat.Builder notificationBuilder){
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+    private PendingIntent buildNotificationIntent(Context context, Flight flight){
+        Intent intent = new Intent(context, FlightInfoFragment.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-        // notificationId is a unique int for each notification that you must define
-        notificationManager.notify(id, notificationBuilder.build());
+        intent.putExtra("name", flight.getName());
+        intent.putExtra("reusedFairings", flight.hasReusedFairings());
+        intent.putExtra("webcast", flight.getWebcastLink());
+        intent.putExtra("article", flight.getArticleLink());
+        intent.putExtra("wikipedia", flight.getWikipediaLink());
+        intent.putExtra("staticDate", flight.getStaticFireDate());
+        intent.putExtra("details", flight.getLaunchDetails());
+        intent.putExtra("flightNumber", flight.getFlightNumber());
+        intent.putExtra("launchDate", flight.getLaunchDateString());
+        intent.putExtra("missionPatch", flight.getMissionPatch());
+
+        return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
     }
+
+
 }

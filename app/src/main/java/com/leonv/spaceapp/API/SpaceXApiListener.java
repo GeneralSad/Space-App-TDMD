@@ -17,6 +17,6 @@ public interface SpaceXApiListener {
     default void onPayloadAvailable(Payload payload) {};
     default void onLaunchpadAvailable(Launchpad launchpad) {};
     default void onLaunchpadsAvailable(List<Launchpad> launchpads) {};
-    default void onLandpadAvailable(Landpad landpad) {};
+    default void onLandPadAvailable(Landpad landpad) {};
     default void onDataError(Error error) {};
 }

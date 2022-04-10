@@ -39,7 +39,7 @@ public class GeofenceManager {
                 .setCircularRegion(
                         geofenceCenterPoint.getLatitude(),
                         geofenceCenterPoint.getLongitude(),
-                        geofenceRadius * 3
+                        geofenceRadius
                 )
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
@@ -51,7 +51,7 @@ public class GeofenceManager {
     }
 
     public GeofencingRequest makeRequest() {
-        return makeRequest(GeofencingRequest.INITIAL_TRIGGER_ENTER);
+        return makeRequest(GeofencingRequest.INITIAL_TRIGGER_EXIT);
     }
 
     public GeofencingRequest makeRequest(@GeofencingRequest.InitialTrigger int initialTrigger) {

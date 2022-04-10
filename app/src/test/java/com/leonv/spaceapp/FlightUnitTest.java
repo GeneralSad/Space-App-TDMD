@@ -9,7 +9,10 @@ import static org.mockito.Mockito.mock;
 import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.RocketFlightCore;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class FlightUnitTest {
 
@@ -32,6 +35,7 @@ public class FlightUnitTest {
     final static String flightId = "testFlightId";
     final static String missionPatch = "MissionPatch";
 
+    Date launchdate;
     Flight flight;
 
     @Before
@@ -40,6 +44,14 @@ public class FlightUnitTest {
         payloadIds.add("testPayload");
 
         cores.add(mock(RocketFlightCore.class));
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+
+        try {
+            launchdate = dateFormat.parse(launchDateUtc);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         flight = new Flight(hasReusedFairings, webcastLink, articleLink, wikipediaLink, staticFireDateUtc, isTBD, isNET, rocketId,
                 launchDetails, payloadIds, launchpadId, flightNumber, name, launchDateUtc, datePrecision, cores, flightId, missionPatch);
@@ -143,9 +155,14 @@ public class FlightUnitTest {
 
     @Test
     public void getLaunchDateTest() {
+        assertEquals(launchdate, flight.getLaunchDateUtc());
+    }
+
+    @Test
+    public void getLaunchDateStringTest() {
         final String launchdate = "1 January 2022 13:00";
 
-        assertEquals(launchdate, flight.getLaunchDate());
+        assertEquals(launchdate, flight.getLaunchDateString());
     }
 
     @Test
@@ -154,7 +171,7 @@ public class FlightUnitTest {
         flight = new Flight(hasReusedFairings, webcastLink, articleLink, wikipediaLink, staticFireDateUtc, isTBD, isNET, rocketId,
                 launchDetails, payloadIds, launchpadId, flightNumber, name, "", datePrecision, cores, flightId, missionPatch);
 
-        assertEquals(launchdate, flight.getLaunchDate());
+        assertEquals(launchdate, flight.getLaunchDateString());
     }
 
     @Test
@@ -163,7 +180,7 @@ public class FlightUnitTest {
         flight = new Flight(hasReusedFairings, webcastLink, articleLink, wikipediaLink, staticFireDateUtc, isTBD, isNET, rocketId,
                 launchDetails, payloadIds, launchpadId, flightNumber, name, launchDateUtc, "year", cores, flightId, missionPatch);
 
-        assertEquals(launchdate, flight.getLaunchDate());
+        assertEquals(launchdate, flight.getLaunchDateString());
     }
 
     @Test
@@ -172,7 +189,7 @@ public class FlightUnitTest {
         flight = new Flight(hasReusedFairings, webcastLink, articleLink, wikipediaLink, staticFireDateUtc, isTBD, isNET, rocketId,
                 launchDetails, payloadIds, launchpadId, flightNumber, name, launchDateUtc, "month", cores, flightId, missionPatch);
 
-        assertEquals(launchdate, flight.getLaunchDate());
+        assertEquals(launchdate, flight.getLaunchDateString());
     }
 
     @Test
@@ -181,7 +198,7 @@ public class FlightUnitTest {
         flight = new Flight(hasReusedFairings, webcastLink, articleLink, wikipediaLink, staticFireDateUtc, isTBD, isNET, rocketId,
                 launchDetails, payloadIds, launchpadId, flightNumber, name, launchDateUtc, "day", cores, flightId, missionPatch);
 
-        assertEquals(launchdate, flight.getLaunchDate());
+        assertEquals(launchdate, flight.getLaunchDateString());
     }
 
     @Test
@@ -190,7 +207,7 @@ public class FlightUnitTest {
         flight = new Flight(hasReusedFairings, webcastLink, articleLink, wikipediaLink, staticFireDateUtc, isTBD, true, rocketId,
                 launchDetails, payloadIds, launchpadId, flightNumber, name, launchDateUtc, datePrecision, cores, flightId, missionPatch);
 
-        assertEquals(launchdate, flight.getLaunchDate());
+        assertEquals(launchdate, flight.getLaunchDateString());
     }
 
 }

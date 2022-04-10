@@ -1,4 +1,4 @@
-package com.leonv.spaceapp.popup;
+package com.leonv.spaceapp.Popup;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.leonv.spaceapp.Models.Flight;
-import com.leonv.spaceapp.utils.OnItemClickListener;
+import com.leonv.spaceapp.Utils.OnItemClickListener;
 import com.leonv.spaceapp.Views.PopupLaunchesRecyclerViewAdapter;
 import com.leonv.spaceapp.R;
 import com.leonv.spaceapp.databinding.PopupLaunchpadBinding;

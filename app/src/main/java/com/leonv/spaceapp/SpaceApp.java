@@ -1,4 +1,4 @@
-package com.leonv.spaceapp.utils;
+package com.leonv.spaceapp;
 
 import android.app.Application;
 import android.app.NotificationChannel;
@@ -8,9 +8,9 @@ import android.os.Build;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
-import androidx.work.WorkRequest;
 
 import com.leonv.spaceapp.API.SpaceXApiManager;
+import com.leonv.spaceapp.Wokers.LaunchCheckWorker;
 
 public class SpaceApp extends Application {
 

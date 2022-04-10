@@ -1,15 +1,11 @@
-package com.leonv.spaceapp;
+package com.leonv.spaceapp.Wokers;
 
-import android.Manifest;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Constraints;
@@ -18,28 +14,14 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Tasks;
-import com.leonv.spaceapp.API.SpaceXApiListener;
-import com.leonv.spaceapp.API.SpaceXApiManager;
+import com.leonv.spaceapp.Utils.FlightChecker;
 import com.leonv.spaceapp.Models.Flight;
-import com.leonv.spaceapp.Models.Launchpad;
+import com.leonv.spaceapp.R;
 import com.leonv.spaceapp.Views.FlightInfoFragment;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class LaunchCheckWorker extends Worker {
     private final int ALERT_DISTANCE = 1000 * 50;

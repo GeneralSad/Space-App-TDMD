@@ -1,4 +1,4 @@
-package com.leonv.spaceapp;
+package com.leonv.spaceapp.Utils;
 
 import android.Manifest;
 import android.content.Context;
@@ -16,6 +16,7 @@ import com.leonv.spaceapp.API.SpaceXApiListener;
 import com.leonv.spaceapp.API.SpaceXApiManager;
 import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.Launchpad;
+import com.leonv.spaceapp.SpaceApp;
 
 import java.util.ArrayList;
 import java.util.Calendar;

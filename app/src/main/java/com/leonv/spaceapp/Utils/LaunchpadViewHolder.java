@@ -1,12 +1,11 @@
-package com.leonv.spaceapp.utils;
+package com.leonv.spaceapp.Utils;
 
 import androidx.fragment.app.Fragment;
 
 import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.Launchpad;
-import com.leonv.spaceapp.Models.Rocket;
 import com.leonv.spaceapp.Viewmodels.UpcomingViewModel;
-import com.leonv.spaceapp.popup.PopupLaunchpad;
+import com.leonv.spaceapp.Popup.PopupLaunchpad;
 
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;

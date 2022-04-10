@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.preference.PreferenceManager;
@@ -20,16 +19,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.leonv.spaceapp.API.SpaceXApiListener;
-import com.leonv.spaceapp.API.SpaceXApiManager;
+import com.leonv.spaceapp.GeofenceManager;
 import com.leonv.spaceapp.LaunchpadViewHolder;
-import com.leonv.spaceapp.MapUtils;
-import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.Launchpad;
 import com.leonv.spaceapp.Viewmodels.MapViewModel;
 import com.leonv.spaceapp.Viewmodels.UpcomingViewModel;
 import com.leonv.spaceapp.databinding.FragmentMapBinding;
-import com.leonv.spaceapp.popup.PopupLaunchpad;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.util.GeoPoint;
@@ -39,9 +34,6 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -149,9 +141,18 @@ public class MapFragment extends Fragment implements MapViewModel.LaunchpadListe
                 .map((x) -> new LaunchpadViewHolder(this, binding.mapview, x, this.upcomingViewModel))
                 .collect(Collectors.toList());
 
+        GeofenceManager geofenceManager = new GeofenceManager(this.requireActivity().getApplication());
+
         for (LaunchpadViewHolder launchpadViewHolder : launchpadViewHolders) {
             Marker marker = launchpadViewHolder.create();
             binding.mapview.getOverlays().add(marker);
+            geofenceManager.addGeofence(launchpadViewHolder.getLaunchpad().getId(),
+                    launchpadViewHolder.getGeoPoint(),
+                    50*1000);
+        }
+        if(this.mapViewModel.getGeofenceManager() == null){
+            this.mapViewModel.setGeofenceManager(geofenceManager);
+            geofenceManager.enableGeofences();
         }
         binding.mapview.invalidate();
     }

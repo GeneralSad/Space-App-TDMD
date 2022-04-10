@@ -1,7 +1,6 @@
 package com.leonv.spaceapp.Views;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -47,7 +46,7 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
 
         holder.flightName.setText(flight.getName());
         holder.flight = flight;
-        holder.flightTime.setText(flight.getLaunchDate());
+        holder.flightTime.setText(flight.getLaunchDateString());
         holder.flightRocket.setText(flight.getRocketId());
 
         holder.itemLayout.setOnClickListener(itemView -> {
@@ -60,7 +59,7 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
             intent.putExtra("staticDate", flight.getStaticFireDate());
             intent.putExtra("details", flight.getLaunchDetails());
             intent.putExtra("flightNumber", flight.getFlightNumber());
-            intent.putExtra("launchDate", flight.getLaunchDate());
+            intent.putExtra("launchDate", flight.getLaunchDateString());
             intent.putExtra("missionPatch", flight.getMissionPatch());
             context.startActivity(intent);
             Log.i(LOGTAG, "Clicked on item");

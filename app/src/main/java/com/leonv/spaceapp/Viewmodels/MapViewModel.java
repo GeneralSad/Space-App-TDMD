@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.leonv.spaceapp.API.SpaceXApiListener;
 import com.leonv.spaceapp.API.SpaceXApiManager;
+import com.leonv.spaceapp.GeofenceManager;
 import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.Landpad;
 import com.leonv.spaceapp.Models.Launchpad;
@@ -33,6 +34,7 @@ public class MapViewModel extends AndroidViewModel implements SpaceXApiListener 
 
     private final HashMap<String, Launchpad> launchpads = new HashMap<>();
     private final ArrayList<LaunchpadListener> launchpadListeners = new ArrayList<>();
+    private GeofenceManager geofenceManager;
     private SpaceXApiManager spaceXApiManager;
 
     public MapViewModel(@NonNull Application application) {
@@ -69,6 +71,15 @@ public class MapViewModel extends AndroidViewModel implements SpaceXApiListener 
     public HashMap<String, Launchpad> getLaunchPads(){
         return this.launchpads;
     }
+
+    public GeofenceManager getGeofenceManager() {
+        return geofenceManager;
+    }
+
+    public void setGeofenceManager(GeofenceManager geofenceManager) {
+        this.geofenceManager = geofenceManager;
+    }
+
 
     public void requestLaunchpads() {
         spaceXApiManager.getLaunchPadsData();

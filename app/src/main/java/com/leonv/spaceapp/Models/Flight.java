@@ -136,7 +136,11 @@ public class Flight implements Serializable {
         else return "TBD";
     }
 
-    public String getLaunchDate() {
+    public Date getLaunchDateUtc(){
+        return this.launchDateUtc;
+    }
+
+    public String getLaunchDateString() {
 
         String launchDate;
 

@@ -69,6 +69,7 @@ public class MapFragment extends Fragment implements MapViewModel.LaunchpadListe
 
         mapViewModel.requestLaunchpads();
         upcomingViewModel.requestFlights();
+        upcomingViewModel.requestRockets();
 
         binding = FragmentMapBinding.inflate(inflater, container, false);
 

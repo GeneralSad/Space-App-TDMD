@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.leonv.spaceapp.Models.Flight;
+import com.leonv.spaceapp.Models.Rocket;
 import com.leonv.spaceapp.R;
 import com.leonv.spaceapp.Viewmodels.UpcomingViewModel;
 
@@ -38,6 +39,7 @@ public class UpcomingFragment extends Fragment implements UpcomingViewModel.Flig
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         upcomingViewModel.requestFlights();
+        upcomingViewModel.requestRockets();
 
         View view = inflater.inflate(R.layout.upcoming_fragment, container, false);
 
@@ -47,7 +49,7 @@ public class UpcomingFragment extends Fragment implements UpcomingViewModel.Flig
 
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-            flightsRecyclerViewAdapter = new FlightsRecyclerViewAdapter(getContext(), upcomingViewModel.getFlights(), upcomingViewModel);
+            flightsRecyclerViewAdapter = new FlightsRecyclerViewAdapter(getContext(), upcomingViewModel.getFlights(), upcomingViewModel.getRockets() , upcomingViewModel);
             recyclerView.setAdapter(flightsRecyclerViewAdapter);
         }
 
@@ -57,5 +59,10 @@ public class UpcomingFragment extends Fragment implements UpcomingViewModel.Flig
     @Override
     public void onFlightsAvailable(List<Flight> flightList) {
         flightsRecyclerViewAdapter.updateFlights(flightList);
+    }
+
+    @Override
+    public void onRocketsAvailable(List<Rocket> rocketsList) {
+        flightsRecyclerViewAdapter.updateRockets(rocketsList);
     }
 }

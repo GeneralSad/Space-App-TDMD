@@ -13,7 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.leonv.spaceapp.Models.Flight;
-import com.leonv.spaceapp.OnItemClickListener;
+import com.leonv.spaceapp.Models.Rocket;
+import com.leonv.spaceapp.utils.OnItemClickListener;
 import com.leonv.spaceapp.R;
 import com.squareup.picasso.Picasso;
 
@@ -26,11 +27,13 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
 
     private Context context;
     private List<Flight> flights;
+    private List<Rocket> rockets;
     private OnItemClickListener onItemClickListener;
 
-    public FlightsRecyclerViewAdapter(Context context, ArrayList<Flight> items, OnItemClickListener onItemClickListener) {
+    public FlightsRecyclerViewAdapter(Context context, ArrayList<Flight> flights, ArrayList<Rocket> rockets, OnItemClickListener onItemClickListener) {
         this.context = context;
-        this.flights = items;
+        this.flights = flights;
+        this.rockets = rockets;
         this.onItemClickListener = onItemClickListener;
     }
 
@@ -47,7 +50,14 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
         holder.flightName.setText(flight.getName());
         holder.flight = flight;
         holder.flightTime.setText(flight.getLaunchDateString());
-        holder.flightRocket.setText(flight.getRocketId());
+
+        String rocketName = "Rocket TBD";
+
+        for (Rocket rocket : rockets) {
+            if (rocket.getRocketId().equals(flight.getRocketId())) rocketName = rocket.getName();
+        }
+
+        holder.flightRocket.setText(rocketName);
 
         holder.itemLayout.setOnClickListener(itemView -> {
             Intent intent = new Intent(context, FlightInfoFragment.class);
@@ -65,6 +75,7 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
             Log.i(LOGTAG, "Clicked on item");
         });
 
+        //Check if there is a mission patch, if there isn't use the default picture
         String missionPatch = flights.get(position).getMissionPatch();
         if (!missionPatch.isEmpty()) {
             Picasso.get().load(flights.get(position).getMissionPatch()).into(holder.missionPatch);
@@ -75,6 +86,11 @@ public class FlightsRecyclerViewAdapter extends RecyclerView.Adapter<FlightsRecy
 
     public void updateFlights(List<Flight> flights) {
         this.flights = flights;
+        notifyDataSetChanged();
+    }
+
+    public void updateRockets(List<Rocket> rockets) {
+        this.rockets = rockets;
         notifyDataSetChanged();
     }
 

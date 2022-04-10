@@ -1,9 +1,10 @@
-package com.leonv.spaceapp;
+package com.leonv.spaceapp.utils;
 
 import androidx.fragment.app.Fragment;
 
 import com.leonv.spaceapp.Models.Flight;
 import com.leonv.spaceapp.Models.Launchpad;
+import com.leonv.spaceapp.Models.Rocket;
 import com.leonv.spaceapp.Viewmodels.UpcomingViewModel;
 import com.leonv.spaceapp.popup.PopupLaunchpad;
 

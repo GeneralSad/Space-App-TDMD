@@ -11,13 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.leonv.spaceapp.Models.Flight;
-import com.leonv.spaceapp.OnItemClickListener;
-import com.leonv.spaceapp.PopupLaunchesRecyclerViewAdapter;
+import com.leonv.spaceapp.utils.OnItemClickListener;
+import com.leonv.spaceapp.Views.PopupLaunchesRecyclerViewAdapter;
 import com.leonv.spaceapp.R;
 import com.leonv.spaceapp.databinding.PopupLaunchpadBinding;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PopupLaunchpad implements OnItemClickListener {
 

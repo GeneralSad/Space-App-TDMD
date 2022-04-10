@@ -112,6 +112,7 @@ public class RocketInfoFragment extends AppCompatActivity {
         }
     }
 
+    //Set the data in the rocket info fragment
     private void setData() {
 
         Picasso.get().load(image).into(imageView);
@@ -132,8 +133,12 @@ public class RocketInfoFragment extends AppCompatActivity {
         textLaunchCost.setText(String.format("Launch Cost: %s Million USD", launchCostDollar / 1000000.0));
         textSuccessRate.setText(String.format("Success Rate: %d%%", successRate));
         textCompany.setText(String.format("Made by: %s", company));
-        textWikipedia.setText(Html.fromHtml("<a href=\"" + wikipediaLink + "\">Wikipedia</a>"));
-        textWikipedia.setMovementMethod(LinkMovementMethod.getInstance());
+
+        if (!wikipediaLink.isEmpty()) {
+            textWikipedia.setText(Html.fromHtml("<a href=\"" + wikipediaLink + "\">Wikipedia</a>"));
+            textWikipedia.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
         textDescription.setText(description);
         Log.i(LOGTAG, "Set data");
 

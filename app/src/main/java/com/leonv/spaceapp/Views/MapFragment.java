@@ -19,8 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.leonv.spaceapp.GeofenceManager;
-import com.leonv.spaceapp.LaunchpadViewHolder;
+import com.leonv.spaceapp.utils.GeofenceManager;
+import com.leonv.spaceapp.utils.LaunchpadViewHolder;
 import com.leonv.spaceapp.Models.Launchpad;
 import com.leonv.spaceapp.SpaceApp;
 import com.leonv.spaceapp.Viewmodels.MapViewModel;
@@ -70,6 +70,7 @@ public class MapFragment extends Fragment implements MapViewModel.LaunchpadListe
 
         mapViewModel.requestLaunchpads();
         upcomingViewModel.requestFlights();
+        upcomingViewModel.requestRockets();
 
         binding = FragmentMapBinding.inflate(inflater, container, false);
 
@@ -83,26 +84,20 @@ public class MapFragment extends Fragment implements MapViewModel.LaunchpadListe
         return binding.getRoot();
     }
 
+    //Set default map values
     private void initMap() {
         MapView mapView = binding.mapview;
 
         MapController mapController = (MapController) mapView.getController();
-        mapController.setZoom(10);
+        mapController.setZoom(5);
         mapView.setMaxZoomLevel(20.0);
-        mapView.setMinZoomLevel(1.0);
+        mapView.setMinZoomLevel(3.0);
+        mapView.setVerticalMapRepetitionEnabled(false);
+        mapView.setScrollableAreaLimitLatitude(80.0, -80.0, 10);
         mapView.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.ALWAYS);
-        GeoPoint gPt = new GeoPoint(51.588905, 4.776070);
+        GeoPoint gPt = new GeoPoint(38.495586, -99.4411535) ;
         mapController.setCenter(gPt);
     }
-
-//    @RequiresApi(api = Build.VERSION_CODES.N)
-//    public void onLaunchpadsAvailable(Collection<Launchpad> launchpads) {
-//        List<GeoPoint> geoPointList = launchpads.stream()
-//                .map((x) -> new GeoPoint(x.getLatitude(), x.getLongitude()))
-//                .collect(Collectors.toList());
-//
-//        MapUtils.AddPoisToMap(binding.mapview, geoPointList);
-//    }
 
     private void askPermissions(Context context) {
         if (ContextCompat.checkSelfPermission(
@@ -144,6 +139,7 @@ public class MapFragment extends Fragment implements MapViewModel.LaunchpadListe
 
         GeofenceManager geofenceManager = new GeofenceManager((SpaceApp)this.requireContext().getApplicationContext());
 
+        //Add marker and geofence to each launchpad
         for (LaunchpadViewHolder launchpadViewHolder : launchpadViewHolders) {
             Marker marker = launchpadViewHolder.create();
             binding.mapview.getOverlays().add(marker);

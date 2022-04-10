@@ -5,32 +5,52 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:id="@+id/popup_launchpad_launches_item">
+    android:id="@+id/launchpadItemLayout">
 
-<!--    <ImageView-->
-<!--        android:layout_margin="10dp"-->
-<!--        android:id="@+id/upcomingItemImage"-->
-<!--        android:layout[_width="30dp"-->
-<!--        android:layout_height="30dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:src="@drawable/rocket"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toStartOf="@id/upcomingItemText"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <TextView
-        android:id="@+id/popup_launchpad_launch_item_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:layout_marginStart="16dp"
-        android:text="Name placeholder"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:textSize="20dp"
-        android:textStyle="bold"
+    <ImageView
+        android:layout_margin="10dp"
+        android:id="@+id/launchpadItemImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/rocket"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/launchpadItemTextBlock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/launchpadItemImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/launchpadItemText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name placeholder"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/launchpadItemTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time placeholder"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

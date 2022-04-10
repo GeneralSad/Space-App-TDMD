@@ -1,4 +1,4 @@
-package com.leonv.spaceapp;
+package com.leonv.spaceapp.utils;
 
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;

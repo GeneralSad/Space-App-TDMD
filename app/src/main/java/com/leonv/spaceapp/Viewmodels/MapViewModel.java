@@ -6,23 +6,14 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.leonv.spaceapp.API.SpaceXApiListener;
 import com.leonv.spaceapp.API.SpaceXApiManager;
-import com.leonv.spaceapp.GeofenceManager;
-import com.leonv.spaceapp.Models.Flight;
-import com.leonv.spaceapp.Models.Landpad;
+import com.leonv.spaceapp.utils.GeofenceManager;
 import com.leonv.spaceapp.Models.Launchpad;
-import com.leonv.spaceapp.Models.Payload;
-import com.leonv.spaceapp.Models.Rocket;
-import com.leonv.spaceapp.SpaceApp;
+import com.leonv.spaceapp.utils.SpaceApp;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Function;
@@ -41,7 +32,6 @@ public class MapViewModel extends AndroidViewModel implements SpaceXApiListener 
         super(application);
         spaceXApiManager = ((SpaceApp) application).getApiManager();
         spaceXApiManager.addListener(this);
-        spaceXApiManager.getLaunchPadsData();
     }
 
     public interface LaunchpadListener{
@@ -80,7 +70,7 @@ public class MapViewModel extends AndroidViewModel implements SpaceXApiListener 
         this.geofenceManager = geofenceManager;
     }
 
-
+    //Make a request to get the launchpads from the API
     public void requestLaunchpads() {
         spaceXApiManager.getLaunchPadsData();
     }

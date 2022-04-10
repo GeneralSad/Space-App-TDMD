@@ -1,4 +1,4 @@
-package com.leonv.spaceapp;
+package com.leonv.spaceapp.Views;
 
 import android.content.Intent;
 import android.util.Log;
@@ -12,7 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.leonv.spaceapp.Models.Flight;
-import com.leonv.spaceapp.Views.FlightInfoFragment;
+import com.leonv.spaceapp.utils.OnItemClickListener;
+import com.leonv.spaceapp.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -25,9 +26,6 @@ public class PopupLaunchesRecyclerViewAdapter extends RecyclerView.Adapter<Popup
     private final List<Flight> flights;
     private final OnItemClickListener onItemClickListener;
 
-    private RecyclerView recyclerView;
-    private TextView emptyView;
-
     public PopupLaunchesRecyclerViewAdapter(ArrayList<Flight> items, OnItemClickListener onItemClickListener) {
         this.flights = items;
         this.onItemClickListener = onItemClickListener;
@@ -35,7 +33,7 @@ public class PopupLaunchesRecyclerViewAdapter extends RecyclerView.Adapter<Popup
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.upcoming_fragment_item, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.popup_launchpad_launch_item, parent, false);
         return new ViewHolder(itemView);
     }
 
@@ -43,7 +41,6 @@ public class PopupLaunchesRecyclerViewAdapter extends RecyclerView.Adapter<Popup
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.flightName.setText(flights.get(position).getName());
         holder.flightTime.setText(flights.get(position).getLaunchDateString());
-        holder.rocketName.setText(flights.get(position).getRocketId());
         holder.flight = flights.get(position);
 
         String missionPatch = flights.get(position).getMissionPatch();
@@ -63,17 +60,15 @@ public class PopupLaunchesRecyclerViewAdapter extends RecyclerView.Adapter<Popup
         public ConstraintLayout itemLayout;
         public TextView flightName;
         public TextView flightTime;
-        public TextView rocketName;
         public ImageView logo;
         public Flight flight;
 
         public ViewHolder(View view) {
             super(view);
-            flightName = view.findViewById(R.id.upcomingItemText);
-            flightTime = view.findViewById(R.id.upcomingItemTime);
-            rocketName = view.findViewById(R.id.upcomingItemRocket);
-            logo = view.findViewById(R.id.upcomingItemImage);
-            itemLayout = view.findViewById(R.id.upcomingItemLayout);
+            flightName = view.findViewById(R.id.launchpadItemText);
+            flightTime = view.findViewById(R.id.launchpadItemTime);
+            logo = view.findViewById(R.id.launchpadItemImage);
+            itemLayout = view.findViewById(R.id.launchpadItemLayout);
             itemView.setOnClickListener(this);
             logo.getLayoutParams().height = 80;
             logo.getLayoutParams().width = 80;

@@ -5,7 +5,10 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
 import com.leonv.spaceapp.API.SpaceXApiManager;
 
@@ -32,9 +35,11 @@ public class SpaceApp extends Application {
     }
 
     public void enableBackgroundWorker(){
-        WorkManager
-                .getInstance(this)
-                .enqueue(LaunchCheckWorker.buildWorkRequest());
+        PeriodicWorkRequest workRequest = LaunchCheckWorker.buildWorkRequest();
+        WorkManager.getInstance(this)
+                .enqueueUniquePeriodicWork("LaunchCheckWorker",
+                        ExistingPeriodicWorkPolicy.KEEP,
+                        workRequest);
     }
 
     private NotificationManager createNotificationChannel() {

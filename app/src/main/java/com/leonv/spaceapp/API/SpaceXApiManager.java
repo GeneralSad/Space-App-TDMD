@@ -254,10 +254,6 @@ public class SpaceXApiManager {
                             JSONObject jsonFlight = response.getJSONObject(i);
                             Flight flight = createFlight(jsonFlight);
                             flights.add(flight);
-                            for (SpaceXApiListener listener : listeners) {
-                                listener.onFlightsAvailable(flights);
-                            }
-                            flights.add(flight);
                         }
                         for (SpaceXApiListener listener : listeners) {
                             listener.onFlightsAvailable(flights);

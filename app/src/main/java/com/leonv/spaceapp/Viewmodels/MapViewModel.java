@@ -41,7 +41,7 @@ public class MapViewModel extends AndroidViewModel implements SpaceXApiListener 
         super(application);
         spaceXApiManager = ((SpaceApp) application).getApiManager();
         spaceXApiManager.addListener(this);
-        spaceXApiManager.getLaunchPadsData();
+//        spaceXApiManager.getLaunchPadsData();
     }
 
     public interface LaunchpadListener{
